@@ -84,14 +84,18 @@ main { display: block; }
 /* ===== CARROSSEL ===== */
 .carousel-section { padding: 80px 0; background: #ffffff; }
 
+/* Wrapper externo: apenas para posicionar as setas absolutamente */
+.carousel-outer {
+  position: relative;
+  padding: 0 56px; /* reserva espaço para os botões nas laterais */
+}
+
 .carousel-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  /* overflow:hidden apenas aqui para clipar os cards — não afeta scroll da página
-     pois este elemento não é html nem body */
-  overflow: hidden;
+  overflow: hidden; /* clipa só os cards, não as setas */
+  border-radius: 4px;
 }
 
 .carousel-track {
@@ -118,10 +122,35 @@ main { display: block; }
 .pro-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; background: var(--yellow-50); color: #a16207; border-radius: var(--radius-full); border: 1px solid var(--yellow-200); }
 .pro-card .btn-primary { width: 100%; padding: 10px; font-size: 13px; }
 
-.carousel-btn { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--yellow-300); background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; box-shadow: var(--shadow-sm); }
+/* Setas: absolutas no .carousel-outer, sempre acima dos cards */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--yellow-300);
+  background: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, border-color .2s, box-shadow .2s, transform .2s;
+  box-shadow: var(--shadow-md);
+}
+.carousel-btn:first-child { left: 0; }
+.carousel-btn:last-child  { right: 0; }
 .carousel-btn svg { width: 20px; height: 20px; color: var(--gray-700); }
-.carousel-btn:hover { background: var(--yellow-500); border-color: var(--yellow-500); transform: scale(1.1); }
+.carousel-btn:hover {
+  background: var(--yellow-500);
+  border-color: var(--yellow-500);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-50%) scale(1.1);
+}
 .carousel-btn:hover svg { color: white; }
+
 .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300); cursor: pointer; transition: all .2s; }
 .dot.active { background: var(--yellow-500); width: 24px; border-radius: 4px; }

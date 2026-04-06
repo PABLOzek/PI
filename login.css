@@ -10,30 +10,62 @@
   justify-content: center;
   background: #ffffff;
   padding: 48px 24px 64px;
+  overflow-x: clip; /* evita barra horizontal quando shapes passam pelo lado */
 }
 
 /* Formas decorativas de fundo */
 .auth-bg-shape {
-  position: absolute;
+  position: fixed;       /* fixed para não vazar fora da viewport nem afetar scroll */
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  will-change: transform, opacity;
 }
+
+/* ── Shape 1 (amarela) ─────────────────────────────────────
+   Rota: canto sup-direito → canto inf-esquerdo → sup-direito
+   A posição base é top:0 / right:0 (canto sup-dir).
+   translateX/Y movem ela para os outros cantos.
+   100vw ≈ largura total, 100vh ≈ altura total.
+──────────────────────────────────────────────────────────── */
 .shape-1 {
-  width: 480px; height: 480px;
-  background: radial-gradient(circle, var(--yellow-200) 0%, transparent 70%);
-  top: -160px; right: -120px;
-  animation: floatShape 8s ease-in-out infinite;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--yellow-200) 0%, transparent 68%);
+  top: -160px; right: -140px;
+  animation: orbit1 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
+
+/* ── Shape 2 (verde) ──────────────────────────────────────
+   Rota: canto inf-esquerdo → canto sup-direito → inf-esquerdo
+   (movimento espelhado — começa onde a amarela termina)
+──────────────────────────────────────────────────────────── */
 .shape-2 {
-  width: 360px; height: 360px;
-  background: radial-gradient(circle, var(--green-100) 0%, transparent 70%);
-  bottom: -100px; left: -80px;
-  animation: floatShape 10s ease-in-out infinite reverse;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, var(--green-100) 0%, transparent 68%);
+  bottom: -120px; left: -100px;
+  animation: orbit2 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
-@keyframes floatShape {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50%       { transform: translateY(-20px) scale(1.03); }
+
+/* Amarela: sup-dir → inf-esq → sup-dir */
+@keyframes orbit1 {
+  0%   { transform: translate(0, 0)                          scale(1);    opacity: 1;   }
+  15%  { transform: translate(-10vw, 15vh)                   scale(1.06); opacity: .85; }
+  40%  { transform: translate(-95vw, 95vh)                   scale(.92);  opacity: .7;  }
+  50%  { transform: translate(-98vw, 100vh)                  scale(.88);  opacity: .65; }
+  65%  { transform: translate(-85vw, 80vh)                   scale(.94);  opacity: .75; }
+  85%  { transform: translate(-12vw, 12vh)                   scale(1.04); opacity: .9;  }
+  100% { transform: translate(0, 0)                          scale(1);    opacity: 1;   }
+}
+
+/* Verde: inf-esq → sup-dir → inf-esq (exatamente oposto) */
+@keyframes orbit2 {
+  0%   { transform: translate(0, 0)                          scale(1);    opacity: 1;   }
+  15%  { transform: translate(10vw, -15vh)                   scale(1.06); opacity: .85; }
+  40%  { transform: translate(95vw, -95vh)                   scale(.92);  opacity: .7;  }
+  50%  { transform: translate(98vw, -100vh)                  scale(.88);  opacity: .65; }
+  65%  { transform: translate(85vw, -80vh)                   scale(.94);  opacity: .75; }
+  85%  { transform: translate(12vw, -12vh)                   scale(1.04); opacity: .9;  }
+  100% { transform: translate(0, 0)                          scale(1);    opacity: 1;   }
 }
 
 /* Card */

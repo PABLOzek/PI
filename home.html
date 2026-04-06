@@ -181,11 +181,13 @@
           <h2 class="section-title">Profissionais para você</h2>
           <p class="section-desc">Veja quem está disponível agora na sua região</p>
         </div>
-        <div class="carousel-wrapper">
+        <div class="carousel-outer">
           <button class="carousel-btn" onclick="slideCarousel(-1)" aria-label="Anterior">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
-          <div class="carousel-track" id="carouselTrack"></div>
+          <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack"></div>
+          </div>
           <button class="carousel-btn" onclick="slideCarousel(1)" aria-label="Próximo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
