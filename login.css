@@ -3,31 +3,28 @@
    Resolve Aí
    ============================================================ */
 
+/* ── Corpo das páginas de auth ─────────────────────────────
+   Usa layout de bloco simples — SEM flexbox no body —
+   para garantir scroll nativo sem qualquer interferência.
+──────────────────────────────────────────────────────────── */
 .auth-body {
   min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   background: #ffffff;
-  padding: 48px 24px 64px;
-  overflow-x: clip; /* evita barra horizontal quando shapes passam pelo lado */
+  padding: 48px 24px 80px;
+  /* Sem display:flex aqui — flexbox no body pode bloquear scroll em alguns browsers */
 }
 
-/* Formas decorativas de fundo */
+/* Centralização do card via margin auto no próprio elemento */
+
+/* Formas decorativas — position:fixed para não afetar layout/scroll */
 .auth-bg-shape {
-  position: fixed;       /* fixed para não vazar fora da viewport nem afetar scroll */
+  position: fixed;
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
   will-change: transform, opacity;
 }
 
-/* ── Shape 1 (amarela) ─────────────────────────────────────
-   Rota: canto sup-direito → canto inf-esquerdo → sup-direito
-   A posição base é top:0 / right:0 (canto sup-dir).
-   translateX/Y movem ela para os outros cantos.
-   100vw ≈ largura total, 100vh ≈ altura total.
-──────────────────────────────────────────────────────────── */
 .shape-1 {
   width: 500px; height: 500px;
   background: radial-gradient(circle, var(--yellow-200) 0%, transparent 68%);
@@ -35,10 +32,6 @@
   animation: orbit1 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-/* ── Shape 2 (verde) ──────────────────────────────────────
-   Rota: canto inf-esquerdo → canto sup-direito → inf-esquerdo
-   (movimento espelhado — começa onde a amarela termina)
-──────────────────────────────────────────────────────────── */
 .shape-2 {
   width: 420px; height: 420px;
   background: radial-gradient(circle, var(--green-100) 0%, transparent 68%);
@@ -46,29 +39,27 @@
   animation: orbit2 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-/* Amarela: sup-dir → inf-esq → sup-dir */
 @keyframes orbit1 {
-  0%   { transform: translate(0, 0)                          scale(1);    opacity: 1;   }
-  15%  { transform: translate(-10vw, 15vh)                   scale(1.06); opacity: .85; }
-  40%  { transform: translate(-95vw, 95vh)                   scale(.92);  opacity: .7;  }
-  50%  { transform: translate(-98vw, 100vh)                  scale(.88);  opacity: .65; }
-  65%  { transform: translate(-85vw, 80vh)                   scale(.94);  opacity: .75; }
-  85%  { transform: translate(-12vw, 12vh)                   scale(1.04); opacity: .9;  }
-  100% { transform: translate(0, 0)                          scale(1);    opacity: 1;   }
+  0%   { transform: translate(0, 0)           scale(1);    opacity: 1;   }
+  15%  { transform: translate(-10vw, 15vh)    scale(1.06); opacity: .85; }
+  40%  { transform: translate(-95vw, 95vh)    scale(.92);  opacity: .7;  }
+  50%  { transform: translate(-98vw, 100vh)   scale(.88);  opacity: .65; }
+  65%  { transform: translate(-85vw, 80vh)    scale(.94);  opacity: .75; }
+  85%  { transform: translate(-12vw, 12vh)    scale(1.04); opacity: .9;  }
+  100% { transform: translate(0, 0)           scale(1);    opacity: 1;   }
 }
 
-/* Verde: inf-esq → sup-dir → inf-esq (exatamente oposto) */
 @keyframes orbit2 {
-  0%   { transform: translate(0, 0)                          scale(1);    opacity: 1;   }
-  15%  { transform: translate(10vw, -15vh)                   scale(1.06); opacity: .85; }
-  40%  { transform: translate(95vw, -95vh)                   scale(.92);  opacity: .7;  }
-  50%  { transform: translate(98vw, -100vh)                  scale(.88);  opacity: .65; }
-  65%  { transform: translate(85vw, -80vh)                   scale(.94);  opacity: .75; }
-  85%  { transform: translate(12vw, -12vh)                   scale(1.04); opacity: .9;  }
-  100% { transform: translate(0, 0)                          scale(1);    opacity: 1;   }
+  0%   { transform: translate(0, 0)          scale(1);    opacity: 1;   }
+  15%  { transform: translate(10vw, -15vh)   scale(1.06); opacity: .85; }
+  40%  { transform: translate(95vw, -95vh)   scale(.92);  opacity: .7;  }
+  50%  { transform: translate(98vw, -100vh)  scale(.88);  opacity: .65; }
+  65%  { transform: translate(85vw, -80vh)   scale(.94);  opacity: .75; }
+  85%  { transform: translate(12vw, -12vh)   scale(1.04); opacity: .9;  }
+  100% { transform: translate(0, 0)          scale(1);    opacity: 1;   }
 }
 
-/* Card */
+/* Card — centralizado via margin auto */
 .auth-card {
   position: relative;
   z-index: 1;
@@ -80,7 +71,7 @@
   box-shadow: var(--shadow-xl);
   border: 1px solid var(--gray-100);
   animation: slideUp .5s cubic-bezier(.34,1.56,.64,1) both;
-  margin: auto;
+  margin: 0 auto; /* centraliza horizontalmente */
 }
 .register-card { max-width: 500px; }
 
@@ -130,8 +121,13 @@
   box-shadow: 0 0 0 4px rgba(234,179,8,.12);
 }
 
-/* Toggle senha */
-.toggle-password { position: absolute; right: 14px; background: none; border: none; cursor: pointer; padding: 4px; color: var(--gray-400); transition: color .2s; line-height: 0; }
+/* Toggle senha / localização */
+.toggle-password {
+  position: absolute; right: 14px;
+  background: none; border: none; cursor: pointer;
+  padding: 4px; color: var(--gray-400);
+  transition: color .2s; line-height: 0;
+}
 .toggle-password:hover { color: var(--yellow-500); }
 .toggle-password svg { width: 18px; height: 18px; }
 
@@ -139,8 +135,12 @@
 .auth-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
 
 /* Checkbox */
-.remember-me, .terms-check { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--gray-600); cursor: pointer; user-select: none; }
-.remember-me input[type="checkbox"], .terms-check input[type="checkbox"] { display: none; }
+.remember-me, .terms-check {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--gray-600); cursor: pointer; user-select: none;
+}
+.remember-me input[type="checkbox"],
+.terms-check input[type="checkbox"] { display: none; }
 .checkmark {
   width: 18px; height: 18px; min-width: 18px;
   border: 2px solid var(--gray-300); border-radius: 5px;
@@ -150,7 +150,11 @@
 .remember-me input:checked ~ .checkmark,
 .terms-check input:checked ~ .checkmark { background: var(--yellow-500); border-color: var(--yellow-500); }
 .remember-me input:checked ~ .checkmark::after,
-.terms-check input:checked ~ .checkmark::after { content: ''; display: block; width: 5px; height: 9px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg) translate(-1px,-1px); }
+.terms-check input:checked ~ .checkmark::after {
+  content: ''; display: block; width: 5px; height: 9px;
+  border: 2px solid white; border-top: none; border-left: none;
+  transform: rotate(45deg) translate(-1px,-1px);
+}
 .terms-check { margin-bottom: 22px; line-height: 1.5; }
 
 /* Botão principal */
@@ -191,8 +195,37 @@
 .strength-fill  { height: 100%; width: 0%; border-radius: 2px; transition: width .3s, background .3s; }
 .strength-label { font-size: 11px; font-weight: 600; margin-top: 4px; display: block; }
 
+/* ===== BOTÃO GOOGLE ===== */
+.btn-google {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 13px 20px;
+  background: #ffffff;
+  color: var(--gray-700);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 4px;
+}
+.btn-google:hover {
+  border-color: #4285F4;
+  box-shadow: 0 4px 16px rgba(66,133,244,.18);
+  transform: translateY(-1px);
+  background: #fafafa;
+}
+.btn-google:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
 /* Responsivo */
 @media (max-width: 480px) {
-  .auth-card { padding: 32px 24px 28px; }
+  .auth-body  { padding: 24px 16px 60px; }
+  .auth-card  { padding: 32px 24px 28px; }
   .auth-options { flex-direction: column; gap: 10px; align-items: flex-start; }
 }

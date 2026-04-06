@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resolve Aí – Meu Perfil</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    html { overflow: visible !important; }
+    body { overflow-x: clip !important; overflow-y: visible !important; background: var(--gray-50); }
+
+    /* ── NAVBAR (igual home) ── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 68px;
+      background: #ffffff;
+      border-bottom: 1px solid #f0f0f0;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      gap: 20px;
+    }
+    .navbar-logo { display: flex; align-items: center; flex-shrink: 0; }
+    .nav-logo-img { height: 50px; width: auto; object-fit: contain; }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 18px; font-size: 14px; font-weight: 700;
+      color: var(--gray-600); border: 2px solid var(--gray-200);
+      border-radius: var(--radius-full); background: #fff;
+      cursor: pointer; transition: var(--transition); text-decoration: none;
+    }
+    .nav-back:hover { background: var(--yellow-50); border-color: var(--yellow-300); color: var(--yellow-600); }
+    .nav-back svg { width: 16px; height: 16px; }
+
+    /* ── PAGE WRAPPER ── */
+    .profile-page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 900;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+    .page-subtitle { font-size: 14px; color: var(--gray-400); margin-bottom: 36px; }
+
+    /* ── CARD ── */
+    .profile-card {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-md);
+      padding: 40px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 800;
+      color: var(--gray-800);
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-title svg { width: 20px; height: 20px; color: var(--yellow-500); }
+
+    /* ── FOTO DE PERFIL ── */
+    .avatar-section {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px; margin-bottom: 12px;
+    }
+    .avatar-wrap {
+      position: relative; width: 110px; height: 110px;
+    }
+    .avatar-img {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--yellow-300);
+      box-shadow: 0 6px 20px rgba(0,0,0,.12);
+      display: block;
+    }
+    .avatar-fallback {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      border: 4px solid var(--yellow-300);
+      box-shadow: 0 6px 20px rgba(0,0,0,.12);
+      background: var(--yellow-200);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 40px; font-weight: 900;
+      color: #a16207;
+    }
+    .avatar-edit-btn {
+      position: absolute; bottom: 4px; right: 4px;
+      width: 32px; height: 32px;
+      background: var(--yellow-500); border: 2px solid #fff;
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, transform .2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .avatar-edit-btn:hover { background: var(--green-500); transform: scale(1.1); }
+    .avatar-edit-btn svg { width: 15px; height: 15px; color: white; }
+    #avatarFileInput { display: none; }
+    .avatar-hint { font-size: 12px; color: var(--gray-400); text-align: center; }
+
+    /* ── INPUTS ── */
+    .field-group { margin-bottom: 20px; }
+    .field-group label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--gray-700); margin-bottom: 7px;
+    }
+    .field-wrap { position: relative; display: flex; align-items: center; }
+    .field-icon {
+      position: absolute; left: 14px;
+      width: 18px; height: 18px;
+      color: var(--gray-400); pointer-events: none;
+    }
+    .field-wrap input {
+      width: 100%;
+      padding: 13px 16px 13px 44px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      font-size: 14px; color: var(--gray-900);
+      background: var(--gray-50);
+      transition: var(--transition); outline: none;
+      font-family: var(--font-body);
+    }
+    .field-wrap input::placeholder { color: var(--gray-400); }
+    .field-wrap input:focus {
+      border-color: var(--yellow-400);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(234,179,8,.12);
+    }
+    .toggle-pwd {
+      position: absolute; right: 14px;
+      background: none; border: none; cursor: pointer;
+      padding: 4px; color: var(--gray-400); transition: color .2s; line-height: 0;
+    }
+    .toggle-pwd:hover { color: var(--yellow-500); }
+    .toggle-pwd svg { width: 18px; height: 18px; }
+
+    /* Divisor de seção de senha */
+    .section-sep {
+      border: none; border-top: 2px dashed var(--gray-100);
+      margin: 28px 0;
+    }
+
+    /* Força da senha */
+    .strength-bar  { height: 4px; background: var(--gray-200); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+    .strength-fill { height: 100%; width: 0%; border-radius: 2px; transition: width .3s, background .3s; }
+    .strength-lbl  { font-size: 11px; font-weight: 600; margin-top: 4px; display: block; }
+
+    /* ── BOTÕES DE AÇÃO ── */
+    .action-row {
+      display: flex; gap: 12px; margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .btn-save {
+      flex: 1;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px;
+      background: var(--yellow-500); color: var(--gray-900);
+      font-family: var(--font-display); font-weight: 800; font-size: 15px;
+      border: none; border-radius: var(--radius-full);
+      cursor: pointer; transition: var(--transition);
+      box-shadow: 0 4px 14px rgba(234,179,8,.35);
+    }
+    .btn-save:hover { background: var(--green-500); color: #fff; box-shadow: 0 6px 20px rgba(34,197,94,.4); transform: translateY(-2px); }
+    .btn-save:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .btn-cancel {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px;
+      background: #fff; color: var(--gray-600);
+      font-family: var(--font-display); font-weight: 700; font-size: 15px;
+      border: 2px solid var(--gray-200); border-radius: var(--radius-full);
+      cursor: pointer; transition: var(--transition);
+    }
+    .btn-cancel:hover { border-color: var(--gray-300); background: var(--gray-50); }
+
+    /* ── BADGE VIA GOOGLE ── */
+    .google-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; background: #f0f7ff;
+      border: 1px solid #c5d8f7; border-radius: var(--radius-full);
+      font-size: 12px; font-weight: 600; color: #2563eb;
+      margin-bottom: 20px;
+    }
+    .google-badge svg { width: 14px; height: 14px; }
+
+    /* ── ESTATÍSTICAS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--gray-100);
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color .2s, transform .2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-card:hover { border-color: var(--yellow-300); transform: translateY(-3px); }
+    .stat-icon { font-size: 32px; margin-bottom: 8px; }
+    .stat-value {
+      font-family: var(--font-display); font-size: 36px; font-weight: 900;
+      color: var(--gray-900); line-height: 1; margin-bottom: 4px;
+    }
+    .stat-label { font-size: 13px; color: var(--gray-500); font-weight: 600; }
+
+    .stats-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .stats-detail-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--gray-100);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .stats-detail-card h4 {
+      font-family: var(--font-display); font-size: 14px; font-weight: 800;
+      color: var(--gray-700); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .stats-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .stats-list li {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: var(--gray-600);
+    }
+    .stats-list li span.rank { font-weight: 700; color: var(--gray-900); }
+    .stats-bar-wrap { flex: 1; margin: 0 10px; height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
+    .stats-bar { height: 100%; border-radius: 3px; background: var(--yellow-400); transition: width 1s cubic-bezier(.4,0,.2,1); }
+    .stats-count { font-size: 12px; color: var(--gray-400); font-weight: 600; white-space: nowrap; }
+
+    /* member since */
+    .member-info {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--gray-400);
+      margin-top: 8px;
+    }
+    .member-info svg { width: 15px; height: 15px; }
+
+    @media (max-width: 600px) {
+      .profile-card { padding: 28px 20px; }
+      .stats-detail-grid { grid-template-columns: 1fr; }
+      .action-row { flex-direction: column; }
+      .btn-save, .btn-cancel { width: 100%; }
+      .navbar { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a href="home.html" class="navbar-logo">
+      <img src="logo_resolveai.jpeg" alt="Resolve Aí" class="nav-logo-img" />
+    </a>
+    <a href="home.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Voltar ao início
+    </a>
+  </header>
+
+  <main class="profile-page">
+
+    <h1 class="page-title">Meu Perfil</h1>
+    <p class="page-subtitle" id="memberSince">Gerencie suas informações pessoais</p>
+
+    <!-- EDITAR PERFIL -->
+    <div class="profile-card">
+      <p class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Informações pessoais
+      </p>
+
+      <!-- Badge Google (apenas se cadastrado via Google) -->
+      <div class="google-badge" id="googleBadge" style="display:none;">
+        <svg viewBox="0 0 24 24" width="14" height="14"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Conta vinculada ao Google
+      </div>
+
+      <!-- Foto de perfil -->
+      <div class="avatar-section">
+        <div class="avatar-wrap">
+          <div id="avatarFallback" class="avatar-fallback">U</div>
+          <img id="avatarImg" class="avatar-img" src="" alt="Foto de perfil" style="display:none;" />
+          <button class="avatar-edit-btn" onclick="document.getElementById('avatarFileInput').click()" title="Alterar foto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </button>
+          <input type="file" id="avatarFileInput" accept="image/*" onchange="handleAvatarChange(event)" />
+        </div>
+        <p class="avatar-hint">Clique na câmera para alterar a foto<br><small>JPG, PNG ou GIF · máx. 5 MB</small></p>
+      </div>
+
+      <!-- Nome -->
+      <div class="field-group">
+        <label for="profileName">Nome completo</label>
+        <div class="field-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input type="text" id="profileName" placeholder="Seu nome completo" oninput="markDirty()" />
+        </div>
+      </div>
+
+      <!-- E-mail (read-only) -->
+      <div class="field-group">
+        <label>E-mail <small style="color:var(--gray-400);font-weight:400">(não editável)</small></label>
+        <div class="field-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input type="email" id="profileEmail" disabled style="opacity:.6;cursor:not-allowed;" />
+        </div>
+      </div>
+
+      <!-- Cidade -->
+      <div class="field-group">
+        <label for="profileCidade">Cidade</label>
+        <div class="field-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <input type="text" id="profileCidade" placeholder="Ex: Anápolis, GO" oninput="markDirty()" />
+        </div>
+      </div>
+
+      <hr class="section-sep" />
+
+      <!-- ALTERAR SENHA -->
+      <p class="card-title" style="margin-bottom:20px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Alterar senha <small style="font-weight:600;color:var(--gray-400);font-size:12px;">(opcional)</small>
+      </p>
+
+      <div class="field-group">
+        <label for="currentPwd">Senha atual</label>
+        <div class="field-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" id="currentPwd" placeholder="Digite sua senha atual" oninput="markDirty()" />
+          <button class="toggle-pwd" type="button" onclick="togglePwd('currentPwd',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="newPwd">Nova senha</label>
+        <div class="field-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" id="newPwd" placeholder="Mínimo 8 caracteres" oninput="onNewPwdInput(this.value)" />
+          <button class="toggle-pwd" type="button" onclick="togglePwd('newPwd',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="strength-bar"><div class="strength-fill" id="pwdStrFill"></div></div>
+        <span class="strength-lbl" id="pwdStrLbl"></span>
+      </div>
+
+      <div class="field-group">
+        <label for="confirmPwd">Confirmar nova senha</label>
+        <div class="field-wrap">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" id="confirmPwd" placeholder="Repita a nova senha" oninput="markDirty()" />
+          <button class="toggle-pwd" type="button" onclick="togglePwd('confirmPwd',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="action-row" id="actionRow" style="display:none;">
+        <button class="btn-save" id="btnSave" onclick="saveProfile()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>
+          Salvar alterações
+        </button>
+        <button class="btn-cancel" onclick="cancelChanges()">Cancelar</button>
+      </div>
+
+    </div>
+
+    <!-- ESTATÍSTICAS -->
+    <div class="profile-card" style="margin-bottom:16px;">
+      <p class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Suas estatísticas
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📞</div>
+          <div class="stat-value" id="statContatos">0</div>
+          <div class="stat-label">Profissionais contatados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔍</div>
+          <div class="stat-value" id="statBuscas">0</div>
+          <div class="stat-label">Buscas realizadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📍</div>
+          <div class="stat-value" id="statCidades">0</div>
+          <div class="stat-label">Cidades pesquisadas</div>
+        </div>
+      </div>
+
+      <div class="stats-detail-grid">
+        <div class="stats-detail-card">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Serviços mais buscados
+          </h4>
+          <ul class="stats-list" id="topServices">
+            <li><span style="color:var(--gray-400);font-size:12px;">Nenhuma busca ainda</span></li>
+          </ul>
+        </div>
+        <div class="stats-detail-card">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Cidades mais procuradas
+          </h4>
+          <ul class="stats-list" id="topCities">
+            <li><span style="color:var(--gray-400);font-size:12px;">Nenhuma pesquisa ainda</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- TOAST -->
+  <script>
+  function showToast(msg, type='') {
+    const old = document.querySelector('.toast');
+    if (old) old.remove();
+    const t = document.createElement('div');
+    t.className = `toast ${type}`;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('show')));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3200);
+  }
+
+  // ── Toggle senha ──
+  function togglePwd(id, btn) {
+    const inp = document.getElementById(id);
+    const hidden = inp.type === 'password';
+    inp.type = hidden ? 'text' : 'password';
+    btn.style.color = hidden ? 'var(--yellow-500)' : 'var(--gray-400)';
+  }
+
+  // ── Força da nova senha ──
+  function onNewPwdInput(val) {
+    markDirty();
+    const fill = document.getElementById('pwdStrFill');
+    const lbl  = document.getElementById('pwdStrLbl');
+    let sc = 0;
+    if (val.length >= 8)        sc++;
+    if (/[A-Z]/.test(val))     sc++;
+    if (/[a-z]/.test(val))     sc++;
+    if (/\d/.test(val))        sc++;
+    if (/[^A-Za-z0-9]/.test(val)) sc++;
+    const cfgs = [
+      { p:'0%',   c:'transparent',       t:'' },
+      { p:'25%',  c:'#ef4444',           t:'🔴 Muito fraca' },
+      { p:'50%',  c:'#f97316',           t:'🟠 Fraca' },
+      { p:'75%',  c:'var(--yellow-400)', t:'🟡 Média' },
+      { p:'90%',  c:'#22c55e',           t:'🟢 Forte' },
+      { p:'100%', c:'var(--green-500)',  t:'✅ Muito forte' },
+    ];
+    const cfg = cfgs[sc] || cfgs[0];
+    fill.style.width = cfg.p; fill.style.background = cfg.c;
+    lbl.textContent  = cfg.t; lbl.style.color = cfg.c;
+  }
+
+  // ── Dirty state ──
+  let isDirty = false;
+  function markDirty() {
+    isDirty = true;
+    document.getElementById('actionRow').style.display = 'flex';
+  }
+
+  // ── Foto de perfil ──
+  function handleAvatarChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { showToast('Imagem muito grande. Máx. 5 MB.', 'error'); return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = document.getElementById('avatarImg');
+      const fb  = document.getElementById('avatarFallback');
+      img.src = ev.target.result;
+      img.style.display = 'block';
+      fb.style.display  = 'none';
+      sessionStorage.setItem('resolveai_avatar', ev.target.result);
+      markDirty();
+      showToast('Foto atualizada! Salve para confirmar.', '');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ── Salvar perfil ──
+  function saveProfile() {
+    const name    = document.getElementById('profileName').value.trim();
+    const cidade  = document.getElementById('profileCidade').value.trim();
+    const curPwd  = document.getElementById('currentPwd').value;
+    const newPwd  = document.getElementById('newPwd').value;
+    const confPwd = document.getElementById('confirmPwd').value;
+
+    if (!name || name.length < 2) { showToast('Informe seu nome completo.', 'error'); return; }
+
+    // Validação de senha (apenas se preencheu nova senha)
+    if (newPwd || curPwd || confPwd) {
+      if (!curPwd) { showToast('Informe sua senha atual para alterá-la.', 'error'); return; }
+      if (newPwd.length < 8) { showToast('A nova senha deve ter ao menos 8 caracteres.', 'error'); return; }
+      if (newPwd !== confPwd) { showToast('As novas senhas não coincidem.', 'error'); return; }
+    }
+
+    const btn = document.getElementById('btnSave');
+    btn.textContent = 'Salvando…'; btn.disabled = true;
+
+    setTimeout(() => {
+      const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+      user.name   = name;
+      user.cidade = cidade;
+      if (newPwd) user.passwordChanged = true;
+      sessionStorage.setItem('resolveai_user', JSON.stringify(user));
+
+      // Limpa campos de senha
+      ['currentPwd','newPwd','confirmPwd'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('pwdStrFill').style.width = '0%';
+      document.getElementById('pwdStrLbl').textContent  = '';
+
+      isDirty = false;
+      document.getElementById('actionRow').style.display = 'none';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg> Salvar alterações';
+      btn.disabled = false;
+
+      showToast('Perfil atualizado com sucesso! ✅', 'success');
+      setTimeout(() => window.location.href = 'home.html', 1200);
+    }, 900);
+  }
+
+  function cancelChanges() {
+    isDirty = false;
+    document.getElementById('actionRow').style.display = 'none';
+    loadProfile(); // restaura valores originais
+    showToast('Alterações descartadas.', '');
+  }
+
+  // ── Carregar dados do perfil ──
+  function loadProfile() {
+    const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+
+    // Nome e e-mail
+    document.getElementById('profileName').value  = user.name   || '';
+    document.getElementById('profileEmail').value = user.email  || user.identifier || '';
+    document.getElementById('profileCidade').value= user.cidade || '';
+
+    // Badge Google
+    if (user.via === 'google') {
+      document.getElementById('googleBadge').style.display = 'inline-flex';
+    }
+
+    // Foto
+    const savedAvatar = sessionStorage.getItem('resolveai_avatar');
+    const img = document.getElementById('avatarImg');
+    const fb  = document.getElementById('avatarFallback');
+    if (savedAvatar || user.photo) {
+      img.src = savedAvatar || user.photo;
+      img.style.display = 'block';
+      fb.style.display  = 'none';
+    } else {
+      fb.textContent = (user.name || 'U')[0].toUpperCase();
+    }
+
+    // Data de entrada
+    const joined = sessionStorage.getItem('resolveai_joined') || new Date().toISOString();
+    if (!sessionStorage.getItem('resolveai_joined'))
+      sessionStorage.setItem('resolveai_joined', joined);
+    const d = new Date(joined);
+    document.getElementById('memberSince').textContent =
+      `Membro desde ${d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}`;
+  }
+
+  // ── Estatísticas ──
+  function loadStats() {
+    const stats = JSON.parse(sessionStorage.getItem('resolveai_stats') || '{"contatos":0,"buscas":[],"cidades":[]}');
+
+    // Totais
+    document.getElementById('statContatos').textContent = stats.contatos || 0;
+    document.getElementById('statBuscas').textContent   = stats.buscas?.length  || 0;
+    const uniqueCities = [...new Set((stats.cidades || []).map(c => c.toLowerCase()))];
+    document.getElementById('statCidades').textContent  = uniqueCities.length;
+
+    // Top serviços
+    const svcEl = document.getElementById('topServices');
+    if (stats.buscas && stats.buscas.length > 0) {
+      const freq = {};
+      stats.buscas.forEach(b => { freq[b] = (freq[b] || 0) + 1; });
+      const sorted = Object.entries(freq).sort((a,b) => b[1]-a[1]).slice(0, 5);
+      const max = sorted[0]?.[1] || 1;
+      svcEl.innerHTML = sorted.map(([svc, cnt], i) => `
+        <li>
+          <span class="rank">${i+1}. ${svc}</span>
+          <div class="stats-bar-wrap"><div class="stats-bar" style="width:${Math.round(cnt/max*100)}%"></div></div>
+          <span class="stats-count">${cnt}x</span>
+        </li>`).join('');
+    }
+
+    // Top cidades
+    const citEl = document.getElementById('topCities');
+    if (stats.cidades && stats.cidades.length > 0) {
+      const freq = {};
+      stats.cidades.forEach(c => { const k = c.toLowerCase(); freq[k] = (freq[k]||0)+1; });
+      const sorted = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,5);
+      const max = sorted[0]?.[1] || 1;
+      const cap = s => s.replace(/\b\w/g, c => c.toUpperCase());
+      citEl.innerHTML = sorted.map(([city, cnt], i) => `
+        <li>
+          <span class="rank">${i+1}. ${cap(city)}</span>
+          <div class="stats-bar-wrap"><div class="stats-bar" style="width:${Math.round(cnt/max*100)}%"></div></div>
+          <span class="stats-count">${cnt}x</span>
+        </li>`).join('');
+    }
+  }
+
+  // Anima contadores ao entrar na viewport
+  function animateCounters() {
+    const els = [
+      { el: document.getElementById('statContatos'), target: parseInt(document.getElementById('statContatos').textContent) || 0 },
+      { el: document.getElementById('statBuscas'),   target: parseInt(document.getElementById('statBuscas').textContent)   || 0 },
+      { el: document.getElementById('statCidades'),  target: parseInt(document.getElementById('statCidades').textContent)  || 0 },
+    ];
+    els.forEach(({ el, target }) => {
+      if (target === 0) return;
+      let cur = 0;
+      const step = Math.ceil(target / 30);
+      const timer = setInterval(() => {
+        cur = Math.min(cur + step, target);
+        el.textContent = cur;
+        if (cur >= target) clearInterval(timer);
+      }, 30);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadProfile();
+    loadStats();
+    setTimeout(animateCounters, 300);
+  });
+  </script>
+</body>
+</html>

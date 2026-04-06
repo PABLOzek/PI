@@ -272,6 +272,13 @@ function stopAutoSlide() {
 // MODAL DE CONTATO
 // ============================================================
 function contactPro(name) {
+  // Registra estatística de contato
+  try {
+    const stats = JSON.parse(sessionStorage.getItem('resolveai_stats') || '{"contatos":0,"buscas":[],"cidades":[]}');
+    stats.contatos = (stats.contatos || 0) + 1;
+    sessionStorage.setItem('resolveai_stats', JSON.stringify(stats));
+  } catch {}
+
   const old = document.getElementById('contactModal');
   if (old) old.remove();
 
@@ -311,27 +318,44 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContact
 // ============================================================
 // BUSCA
 // ============================================================
+function trackSearch(query, city) {
+  try {
+    const stats = JSON.parse(sessionStorage.getItem('resolveai_stats') || '{"contatos":0,"buscas":[],"cidades":[]}');
+    if (query) stats.buscas = [...(stats.buscas || []), query];
+    if (city)  stats.cidades = [...(stats.cidades || []), city];
+    sessionStorage.setItem('resolveai_stats', JSON.stringify(stats));
+  } catch {}
+}
+
 function handleSearch() {
-  const q = document.getElementById('heroSearch')?.value.trim();
+  const q    = document.getElementById('heroSearch')?.value.trim();
+  const city = document.querySelector('.search-location-wrap input')?.value.trim();
   if (!q) { showToast('Digite o serviço que você procura 🔍', ''); return; }
-  showToast(`Buscando prestadores de: "${q}" ✅`, 'success');
+  trackSearch(q, city);
+  const params = new URLSearchParams({ q, city: city || '' });
+  window.location.href = `resultados.html?${params.toString()}`;
 }
 
 function quickSearch(el) {
   const q = el.textContent.replace(/[^\w\sÀ-ÿ]/g, '').trim();
-  const input = document.getElementById('heroSearch');
-  if (input) { input.value = q; input.focus(); }
-  showToast(`Buscando: ${q} 🔍`, '');
+  const city = document.querySelector('.search-location-wrap input')?.value.trim();
+  trackSearch(q, city);
+  const params = new URLSearchParams({ q, city: city || '' });
+  window.location.href = `resultados.html?${params.toString()}`;
 }
 
 function handleSpecificSearch() {
-  const q = document.getElementById('specificSearch')?.value.trim();
+  const q    = document.getElementById('specificSearch')?.value.trim();
+  const city = document.querySelector('.search-location-wrap input')?.value.trim();
   if (!q) { showToast('Descreva o serviço que você procura 🔍', ''); return; }
-  showToast(`Buscando prestadores de: "${q}" ✅`, 'success');
+  trackSearch(q, city);
+  const params = new URLSearchParams({ q, city: city || '' });
+  window.location.href = `resultados.html?${params.toString()}`;
 }
 
 function filterByCategory(cat) {
-  showToast(`Exibindo prestadores em: ${cat} 📂`, 'success');
+  const params = new URLSearchParams({ q: cat, city: '' });
+  window.location.href = `resultados.html?${params.toString()}`;
 }
 
 // ============================================================

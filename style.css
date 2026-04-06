@@ -5,7 +5,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
 
-/* ---- CSS Variables ---- */
 :root {
   --white:        #ffffff;
   --off-white:    #ffffff;
@@ -44,26 +43,12 @@
   --transition:   all .22s cubic-bezier(.4,0,.2,1);
 }
 
-/* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/*
-  CORREÇÃO DEFINITIVA DE SCROLL
-  ══════════════════════════════════════════════════════════════
-  BUG: overflow-x:hidden em AMBOS html + body ao mesmo tempo.
-  Segundo o CSS Overflow spec, quando o <html> tem qualquer overflow
-  diferente de "visible", o browser transfere o controle de scroll
-  do <body> para o <html> — e aí o overflow-x:hidden no <html>
-  acaba bloqueando o overflow-y também, travando a página inteira.
-
-  REGRA: <html> NUNCA recebe overflow.
-         <body> usa overflow-x:clip (mais seguro que hidden —
-         não cria novo scroll container, apenas corta visualmente).
-  ══════════════════════════════════════════════════════════════
-*/
+/* CORREÇÃO DEFINITIVA: html com overflow-y:scroll garante scroll sempre disponível */
 html {
   scroll-behavior: smooth;
-  /* Sem overflow aqui — nunca! */
+  overflow-y: scroll;
 }
 
 body {
@@ -73,22 +58,19 @@ body {
   color: var(--gray-700);
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
-  /* overflow-y é auto por padrão — não redefinir */
+  overflow-x: hidden;
 }
 
 a   { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 input, button, textarea, select { font-family: inherit; }
 
-/* ---- Container ---- */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* ---- Botões ---- */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -115,6 +97,7 @@ input, button, textarea, select { font-family: inherit; }
   transform: translateY(-2px);
 }
 .btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: .65; cursor: not-allowed; transform: none; }
 
 .btn-secondary {
   display: inline-flex;
@@ -141,7 +124,6 @@ input, button, textarea, select { font-family: inherit; }
 }
 .btn-secondary svg { width: 16px; height: 16px; }
 
-/* ---- Seções compartilhadas ---- */
 .section-badge {
   display: inline-block;
   padding: 5px 14px;
@@ -159,13 +141,11 @@ input, button, textarea, select { font-family: inherit; }
 .section-title   { font-family: var(--font-display); font-size: clamp(26px,4vw,40px); font-weight: 900; color: var(--gray-900); line-height: 1.2; margin-bottom: 12px; }
 .section-desc    { font-size: 16px; color: var(--gray-500); max-width: 520px; margin: 0 auto; }
 
-/* ---- Links ---- */
 .link-accent          { color: var(--yellow-600); font-weight: 700; transition: color .2s; }
 .link-accent:hover    { color: var(--green-600); }
 .link-secondary       { color: var(--gray-500); font-size: 14px; transition: color .2s; }
 .link-secondary:hover { color: var(--green-600); }
 
-/* ---- Toast ---- */
 .toast {
   position: fixed;
   bottom: 28px; right: 28px;
@@ -185,7 +165,6 @@ input, button, textarea, select { font-family: inherit; }
 .toast.success { background: var(--green-500); }
 .toast.error   { background: #ef4444; }
 
-/* ---- Scrollbar ---- */
 ::-webkit-scrollbar       { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--gray-100); }
 ::-webkit-scrollbar-thumb { background: var(--yellow-400); border-radius: 4px; }

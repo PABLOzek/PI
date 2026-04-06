@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resolve Aí – Resultados</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="home.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESULTADOS PAGE ─────────────────────────────────── */
+    .results-hero {
+      background: linear-gradient(135deg, var(--yellow-50) 0%, #fff 60%, var(--green-100) 100%);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 36px 0 28px;
+    }
+    .results-hero .container { display: flex; flex-direction: column; gap: 20px; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-500);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color .2s;
+      font-family: var(--font-body);
+    }
+    .back-btn:hover { color: var(--yellow-600); }
+    .back-btn svg { width: 18px; height: 18px; }
+
+    .results-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .results-heading {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 900;
+      color: var(--gray-900);
+      line-height: 1.2;
+    }
+    .results-heading span { color: var(--yellow-500); }
+    .results-count {
+      font-size: 14px;
+      color: var(--gray-500);
+      margin-top: 6px;
+    }
+
+    /* Nova busca inline */
+    .new-search-bar {
+      display: flex;
+      background: #fff;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-full);
+      padding: 5px 5px 5px 0;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      max-width: 620px;
+      width: 100%;
+    }
+    .new-search-bar .sw { flex: 1; display: flex; align-items: center; padding: 0 16px; gap: 10px; }
+    .new-search-bar .sw svg { width: 17px; height: 17px; color: var(--yellow-500); flex-shrink: 0; }
+    .new-search-bar input { border: none; outline: none; font-size: 14px; font-weight: 500; color: var(--gray-800); background: transparent; width: 100%; padding: 10px 0; }
+    .new-search-bar input::placeholder { color: var(--gray-400); }
+    .new-search-bar .btn-primary { flex-shrink: 0; border-radius: var(--radius-full); padding: 10px 22px; font-size: 14px; }
+
+    /* ── LAYOUT PRINCIPAL ────────────────────────────────── */
+    .results-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 28px;
+      padding: 32px 0 64px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR DE FILTROS ──────────────────────────────── */
+    .filters-sidebar {
+      position: sticky;
+      top: 84px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filter-group { margin-bottom: 24px; }
+    .filter-group-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+    }
+    .filter-radio-list { display: flex; flex-direction: column; gap: 8px; }
+    .filter-radio {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--gray-700);
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 2px solid transparent;
+      transition: var(--transition);
+      user-select: none;
+    }
+    .filter-radio input { display: none; }
+    .filter-radio-dot {
+      width: 18px; height: 18px; min-width: 18px;
+      border: 2px solid var(--gray-300);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .filter-radio input:checked ~ .filter-radio-dot { border-color: var(--yellow-500); background: var(--yellow-500); }
+    .filter-radio input:checked ~ .filter-radio-dot::after {
+      content: ''; display: block;
+      width: 7px; height: 7px;
+      background: white; border-radius: 50%;
+    }
+    .filter-radio:has(input:checked) { background: var(--yellow-50); border-color: var(--yellow-200); }
+    .filter-radio:hover { background: var(--gray-50); }
+
+    .filter-divider { height: 1px; background: var(--gray-100); margin: 4px 0 20px; }
+
+    .clear-filters-btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--gray-100);
+      color: var(--gray-600);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .clear-filters-btn:hover { background: var(--yellow-100); color: var(--yellow-700); }
+
+    /* ── GRADE DE CARDS ──────────────────────────────────── */
+    .results-area { min-width: 0; }
+
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .sort-label { font-size: 14px; font-weight: 600; color: var(--gray-600); }
+    .sort-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sort-chip {
+      padding: 7px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray-600);
+      cursor: pointer;
+      background: #fff;
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .sort-chip.active,
+    .sort-chip:hover {
+      background: var(--yellow-500);
+      border-color: var(--yellow-500);
+      color: var(--gray-900);
+    }
+
+    /* Grupo de nível */
+    .result-group-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin: 28px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .result-group-title::after { content: ''; flex: 1; height: 1px; background: var(--gray-100); }
+    .result-group-title:first-child { margin-top: 0; }
+
+    /* ── CARDS DE PRESTADOR ──────────────────────────────── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .pro-result-card {
+      background: #fff;
+      border: 2px solid var(--gray-100);
+      border-radius: var(--radius-xl);
+      padding: 24px 20px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .pro-result-card:hover {
+      border-color: var(--yellow-300);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Badge de nível */
+    .pro-level-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 800;
+      font-family: var(--font-display);
+      letter-spacing: .04em;
+    }
+    .level-top    { background: #fef9c3; color: #a16207; }
+    .level-mid    { background: var(--green-100); color: var(--green-600); }
+    .level-basic  { background: var(--gray-100); color: var(--gray-500); }
+
+    .pro-r-avatar-wrap {
+      width: 68px; height: 68px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--yellow-300);
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .pro-r-avatar-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform .35s;
+    }
+    .pro-result-card:hover .pro-r-avatar-wrap img { transform: scale(1.07); }
+    .pro-r-avatar-fallback {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--yellow-200); color: #a16207;
+      font-family: var(--font-display); font-size: 26px; font-weight: 900;
+    }
+
+    .pro-r-name {
+      font-family: var(--font-display);
+      font-weight: 900; font-size: 16px;
+      color: var(--gray-900); margin-bottom: 2px;
+    }
+    .pro-r-role {
+      font-size: 13px; color: var(--yellow-600);
+      font-weight: 700; margin-bottom: 10px;
+    }
+
+    .pro-r-rating {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--gray-600);
+      margin-bottom: 6px;
+    }
+    .pro-r-rating .stars { color: #f59e0b; font-size: 13px; letter-spacing: 1px; }
+    .pro-r-rating strong { color: var(--gray-900); }
+
+    .pro-r-stats {
+      display: flex; gap: 14px;
+      font-size: 12px; color: var(--gray-500);
+      margin-bottom: 10px;
+    }
+    .pro-r-stats span { display: flex; align-items: center; gap: 4px; }
+
+    .pro-r-location {
+      font-size: 13px; color: var(--gray-500);
+      margin-bottom: 10px;
+    }
+
+    .pro-r-price {
+      background: var(--yellow-50);
+      border: 1px solid var(--yellow-200);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      font-size: 13px; color: var(--gray-700);
+    }
+    .pro-r-price strong {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 900;
+      color: var(--gray-900);
+    }
+    .pro-r-price small { font-size: 11px; color: var(--gray-400); display: block; }
+
+    .pro-r-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 16px;
+    }
+    .pro-r-tag {
+      padding: 4px 10px;
+      background: var(--gray-100);
+      border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    /* Botão de contato — bloqueado para não assinantes */
+    .contact-btn-wrap { margin-top: auto; }
+
+    .btn-contact {
+      width: 100%;
+      padding: 12px;
+      background: var(--yellow-500);
+      color: var(--gray-900);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 14px;
+      border: none;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 4px 14px rgba(234,179,8,.3);
+    }
+    .btn-contact:hover {
+      background: var(--green-500);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(34,197,94,.35);
+      transform: translateY(-1px);
+    }
+
+    /* Botão bloqueado — efeito blur */
+    .btn-contact-locked {
+      width: 100%;
+      padding: 12px;
+      background: var(--gray-200);
+      color: var(--gray-400);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 14px;
+      border: none;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      filter: blur(0);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .btn-contact-locked::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(3px);
+      border-radius: inherit;
+    }
+    .btn-contact-locked:hover { background: var(--gray-300); }
+    .btn-contact-locked .lock-overlay {
+      position: relative;
+      display: flex; align-items: center; gap: 6px;
+      z-index: 1;
+      color: var(--gray-500);
+    }
+
+    .subscribe-hint {
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    .subscribe-hint a { color: var(--yellow-600); font-weight: 700; }
+
+    /* ── EMPTY STATE ─────────────────────────────────────── */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray-400);
+    }
+    .empty-state .emoji { font-size: 52px; margin-bottom: 16px; }
+    .empty-state h3 { font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--gray-700); margin-bottom: 8px; }
+    .empty-state p { font-size: 14px; }
+
+    /* ── MODAL ASSINATURA ────────────────────────────────── */
+    #subscribeModal { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    #subscribeModal.open { opacity: 1; pointer-events: auto; }
+    .sub-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(4px); }
+    .sub-box {
+      position: relative; z-index: 1;
+      background: #fff;
+      border-radius: var(--radius-xl);
+      padding: 44px 36px 36px;
+      max-width: 420px; width: calc(100% - 32px);
+      text-align: center;
+      box-shadow: var(--shadow-xl);
+      transform: translateY(24px) scale(.97);
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    #subscribeModal.open .sub-box { transform: translateY(0) scale(1); }
+    .sub-close { position: absolute; top: 14px; right: 14px; background: var(--gray-100); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; cursor: pointer; color: var(--gray-600); transition: background .2s; }
+    .sub-close:hover { background: var(--gray-200); }
+    .sub-icon { font-size: 52px; margin-bottom: 12px; }
+    .sub-title { font-family: var(--font-display); font-size: 22px; font-weight: 900; color: var(--gray-900); margin-bottom: 10px; }
+    .sub-desc { font-size: 14px; color: var(--gray-500); line-height: 1.6; margin-bottom: 24px; }
+    .sub-plans { display: flex; gap: 12px; margin-bottom: 20px; }
+    .sub-plan {
+      flex: 1; border: 2px solid var(--gray-200); border-radius: var(--radius-lg);
+      padding: 16px 12px; cursor: pointer; transition: var(--transition); text-align: center;
+    }
+    .sub-plan:hover, .sub-plan.selected { border-color: var(--yellow-400); background: var(--yellow-50); }
+    .sub-plan-name { font-family: var(--font-display); font-weight: 900; font-size: 15px; color: var(--gray-800); }
+    .sub-plan-price { font-size: 20px; font-weight: 900; color: var(--yellow-600); margin: 4px 0; font-family: var(--font-display); }
+    .sub-plan-price small { font-size: 12px; font-weight: 600; color: var(--gray-400); }
+    .sub-plan-feat { font-size: 11px; color: var(--gray-500); line-height: 1.4; }
+    .sub-actions { display: flex; flex-direction: column; gap: 10px; }
+    .sub-actions .btn-primary { width: 100%; }
+    .sub-note { font-size: 11px; color: var(--gray-400); margin-top: 6px; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .results-layout { grid-template-columns: 1fr; }
+      .filters-sidebar { position: static; }
+    }
+    @media (max-width: 640px) {
+      .results-grid { grid-template-columns: 1fr; }
+      .sort-bar { flex-direction: column; align-items: flex-start; }
+      .results-title-row { flex-direction: column; }
+      .new-search-bar { flex-direction: column; border-radius: var(--radius-xl); padding: 10px; }
+      .new-search-bar .btn-primary { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a href="home.html" class="navbar-logo">
+      <img src="logo_resolveai.jpeg" alt="Resolve Aí" class="nav-logo-img"
+           onerror="this.style.display='none'" />
+    </a>
+    <nav class="navbar-links">
+      <a href="home.html#servicos"      class="nav-link">Serviços</a>
+      <a href="home.html#profissionais" class="nav-link">Profissionais</a>
+      <a href="home.html#sobre"         class="nav-link">Sobre</a>
+    </nav>
+    <div class="navbar-user">
+      <div class="user-avatar" id="userAvatar" onclick="toggleUserMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="userNameNav">Usuário</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="user-menu" id="userMenu">
+        <a href="profile.html" class="user-menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Meu Perfil
+        </a>
+        <a href="#" class="user-menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Minhas conversas
+        </a>
+        <div class="menu-divider"></div>
+        <a href="index.html" class="user-menu-item logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sair
+        </a>
+      </div>
+    </div>
+    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- HERO DE RESULTADOS -->
+  <section class="results-hero">
+    <div class="container">
+      <button class="back-btn" onclick="window.location.href='home.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Voltar à página inicial
+      </button>
+
+      <div class="results-title-row">
+        <div>
+          <h1 class="results-heading">
+            Prestadores de <span id="searchTermTitle">serviço</span>
+          </h1>
+          <p class="results-count" id="resultsCount">Carregando…</p>
+        </div>
+      </div>
+
+      <!-- Nova busca -->
+      <div class="new-search-bar">
+        <div class="sw">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="newSearchInput" placeholder="Buscar outro serviço…" />
+        </div>
+        <button class="btn-primary" onclick="doNewSearch()">Buscar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYOUT PRINCIPAL -->
+  <main>
+    <div class="container results-layout">
+
+      <!-- SIDEBAR DE FILTROS -->
+      <aside class="filters-sidebar">
+        <div class="filter-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          Filtros
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-label">Ordenar por</div>
+          <div class="filter-radio-list" id="sortFilters">
+            <label class="filter-radio">
+              <input type="radio" name="sort" value="rating" checked onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              ⭐ Melhor avaliação
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="sort" value="price_asc" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              💰 Menor preço
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="sort" value="price_desc" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              💎 Maior preço
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="sort" value="hires" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              🔥 Mais contratados
+            </label>
+          </div>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <div class="filter-group">
+          <div class="filter-group-label">Avaliação mínima</div>
+          <div class="filter-radio-list" id="ratingFilters">
+            <label class="filter-radio">
+              <input type="radio" name="minRating" value="0" checked onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              Todas as avaliações
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="minRating" value="4.5" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              ⭐ 4.5 ou mais
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="minRating" value="4.8" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              ⭐ 4.8 ou mais
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="minRating" value="5.0" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              ⭐ 5.0 apenas
+            </label>
+          </div>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <div class="filter-group">
+          <div class="filter-group-label">Faixa de preço</div>
+          <div class="filter-radio-list">
+            <label class="filter-radio">
+              <input type="radio" name="priceRange" value="all" checked onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              Todos os preços
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="priceRange" value="low" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              💰 Até R$ 150
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="priceRange" value="mid" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              💳 R$ 150 a R$ 300
+            </label>
+            <label class="filter-radio">
+              <input type="radio" name="priceRange" value="high" onchange="applyFilters()" />
+              <span class="filter-radio-dot"></span>
+              💎 Acima de R$ 300
+            </label>
+          </div>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <button class="clear-filters-btn" onclick="clearFilters()">
+          Limpar filtros
+        </button>
+      </aside>
+
+      <!-- ÁREA DE RESULTADOS -->
+      <section class="results-area">
+        <div class="sort-bar">
+          <span class="sort-label">Organizar:</span>
+          <div class="sort-chips">
+            <button class="sort-chip active" onclick="setSort('rating', this)">⭐ Melhor avaliação</button>
+            <button class="sort-chip" onclick="setSort('price_asc', this)">💰 Menor preço</button>
+            <button class="sort-chip" onclick="setSort('hires', this)">🔥 Mais contratados</button>
+          </div>
+        </div>
+
+        <div id="resultsContainer"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- MODAL ASSINATURA -->
+  <div id="subscribeModal">
+    <div class="sub-backdrop" onclick="closeSubscribeModal()"></div>
+    <div class="sub-box">
+      <button class="sub-close" onclick="closeSubscribeModal()">✕</button>
+      <div class="sub-icon">🔐</div>
+      <h2 class="sub-title">Recurso exclusivo</h2>
+      <p class="sub-desc">Para entrar em contato com os prestadores você precisa de uma assinatura ativa. Escolha seu plano e comece agora!</p>
+      <div class="sub-plans">
+        <div class="sub-plan selected" onclick="selectPlan(this)">
+          <div class="sub-plan-name">Básico</div>
+          <div class="sub-plan-price">R$ 19<small>/mês</small></div>
+          <div class="sub-plan-feat">Até 5 contatos por mês</div>
+        </div>
+        <div class="sub-plan" onclick="selectPlan(this)">
+          <div class="sub-plan-name">Pro ⚡</div>
+          <div class="sub-plan-price">R$ 39<small>/mês</small></div>
+          <div class="sub-plan-feat">Contatos ilimitados + prioridade</div>
+        </div>
+      </div>
+      <div class="sub-actions">
+        <button class="btn-primary" onclick="subscribeNow()">Assinar agora 🚀</button>
+      </div>
+      <p class="sub-note">Cancele quando quiser. Sem multa.</p>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // ── Base de dados de prestadores (espelhada do home.js) ──────────────
+    const allProfessionals = [
+      { photo: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=200&h=200&fit=crop&crop=faces', name: 'Carlos Silva',      role: 'Eletricista',           rating: 4.9, reviews: 128, hires: 94,  location: 'São Paulo, SP',       city: 'são paulo',      state: 'sp', tags: ['Residencial','Comercial','CREA'],          priceBase: 180 },
+      { photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&h=200&fit=crop&crop=faces', name: 'Roberto Alves',     role: 'Encanador',             rating: 4.8, reviews:  95, hires: 72,  location: 'Rio de Janeiro, RJ', city: 'rio de janeiro', state: 'rj', tags: ['Hidráulica','Reformas'],                   priceBase: 160 },
+      { photo: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=faces', name: 'Fernanda Costa',    role: 'Personal Trainer',      rating: 5.0, reviews: 210, hires: 180, location: 'Belo Horizonte, MG', city: 'belo horizonte', state: 'mg', tags: ['Musculação','Funcional','CREF'],           priceBase: 120 },
+      { photo: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=200&h=200&fit=crop&crop=faces', name: 'João Pereira',      role: 'Pedreiro / Construtor', rating: 4.7, reviews:  67, hires: 51,  location: 'Curitiba, PR',       city: 'curitiba',       state: 'pr', tags: ['Alvenaria','Reboco','Reformas'],           priceBase: 200 },
+      { photo: 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=200&h=200&fit=crop&crop=faces', name: 'Ana Rodrigues',     role: 'Pintora',               rating: 4.9, reviews:  84, hires: 66,  location: 'Porto Alegre, RS',   city: 'porto alegre',   state: 'rs', tags: ['Residencial','Textura','Papel-parede'],  priceBase: 140 },
+      { photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=faces', name: 'Dra. Paula Lima',    role: 'Fisioterapeuta',        rating: 5.0, reviews: 173, hires: 140, location: 'São Paulo, SP',       city: 'são paulo',      state: 'sp', tags: ['CREFITO','Ortopedia','Domiciliar'],       priceBase: 250 },
+      { photo: 'https://images.unsplash.com/photo-1606214174585-fe31582dc6ee?w=200&h=200&fit=crop&crop=faces', name: 'Marcos Souza',      role: 'Veterinário',           rating: 4.8, reviews: 112, hires: 88,  location: 'Salvador, BA',        city: 'salvador',       state: 'ba', tags: ['CRMV','Pets','Domiciliar'],               priceBase: 200 },
+      { photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=faces', name: 'Lúcia Ferreira',    role: 'Professora Particular', rating: 4.9, reviews: 201, hires: 165, location: 'Fortaleza, CE',      city: 'fortaleza',      state: 'ce', tags: ['Exatas','Vestibular','Online'],           priceBase: 90  },
+      { photo: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=200&fit=crop&crop=faces', name: 'Chef Tiago Melo',   role: 'Chef de Cozinha',       rating: 4.7, reviews:  58, hires: 44,  location: 'Recife, PE',         city: 'recife',         state: 'pe', tags: ['Eventos','Italiana','Domiciliar'],        priceBase: 350 },
+      { photo: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&h=200&fit=crop&crop=faces', name: 'Bruna Andrade',     role: 'Cabeleireira',          rating: 4.8, reviews: 147, hires: 120, location: 'São Paulo, SP',       city: 'são paulo',      state: 'sp', tags: ['Coloração','Corte','Tratamentos'],        priceBase: 110 },
+      { photo: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=200&h=200&fit=crop&crop=faces', name: 'Diego Nascimento',  role: 'Marceneiro',            rating: 4.9, reviews:  76, hires: 58,  location: 'Campinas, SP',       city: 'campinas',       state: 'sp', tags: ['Móveis planejados','Reparos'],            priceBase: 280 },
+      { photo: 'https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=200&h=200&fit=crop&crop=faces', name: 'Camila Torres',     role: 'Fotógrafa',             rating: 5.0, reviews: 234, hires: 198, location: 'Rio de Janeiro, RJ', city: 'rio de janeiro', state: 'rj', tags: ['Casamentos','Eventos','Book'],            priceBase: 400 },
+      { photo: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&h=200&fit=crop&crop=faces', name: 'Dr. Rafael Borges', role: 'Médico Clínico Geral',  rating: 4.9, reviews:  89, hires: 70,  location: 'Anápolis, GO',       city: 'anápolis',       state: 'go', tags: ['CRM','Domiciliar','Telemedicina'],        priceBase: 300 },
+      { photo: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=200&h=200&fit=crop&crop=faces', name: 'Thiago Mendonça',   role: 'Eletricista',           rating: 4.8, reviews:  61, hires: 47,  location: 'Anápolis, GO',       city: 'anápolis',       state: 'go', tags: ['Residencial','Industrial','CREA'],        priceBase: 150 },
+      { photo: 'https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=200&h=200&fit=crop&crop=faces', name: 'Patrícia Vieira',   role: 'Nutricionista',         rating: 5.0, reviews: 143, hires: 118, location: 'Anápolis, GO',       city: 'anápolis',       state: 'go', tags: ['CRN','Emagrecimento','Online'],           priceBase: 180 },
+      { photo: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=200&h=200&fit=crop&crop=faces', name: 'Lucas Oliveira',    role: 'Encanador',             rating: 4.7, reviews:  48, hires: 36,  location: 'Goiânia, GO',        city: 'goiânia',        state: 'go', tags: ['Hidráulica','Reformas','Emergência'],     priceBase: 130 },
+      { photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=faces', name: 'Mariana Castro',    role: 'Psicóloga',             rating: 5.0, reviews: 197, hires: 160, location: 'Goiânia, GO',        city: 'goiânia',        state: 'go', tags: ['CRP','Ansiedade','Online'],               priceBase: 220 },
+      { photo: 'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=200&h=200&fit=crop&crop=faces', name: 'Eduardo Faria',     role: 'Pedreiro / Construtor', rating: 4.6, reviews:  53, hires: 39,  location: 'Goiânia, GO',        city: 'goiânia',        state: 'go', tags: ['Reformas','Alvenaria','Pintura'],         priceBase: 170 },
+      // Extra para variedade nas buscas
+      { photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=faces', name: 'Felipe Ramos',      role: 'Eletricista',           rating: 4.7, reviews:  55, hires: 41,  location: 'Goiânia, GO',        city: 'goiânia',        state: 'go', tags: ['Residencial','Comercial'],               priceBase: 140 },
+      { photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces', name: 'Rodrigo Lima',      role: 'Pedreiro / Construtor', rating: 4.8, reviews:  78, hires: 60,  location: 'Anápolis, GO',       city: 'anápolis',       state: 'go', tags: ['Reformas','Estrutural'],                 priceBase: 210 },
+      { photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces', name: 'Juliana Nunes',     role: 'Personal Trainer',      rating: 4.9, reviews: 134, hires: 108, location: 'São Paulo, SP',       city: 'são paulo',      state: 'sp', tags: ['HIIT','Funcional','Domiciliar'],          priceBase: 130 },
+      { photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=faces', name: 'Henrique Barros',   role: 'Pintor',                rating: 4.6, reviews:  42, hires: 31,  location: 'Goiânia, GO',        city: 'goiânia',        state: 'go', tags: ['Residencial','Epóxi'],                   priceBase: 120 },
+      { photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=faces', name: 'Beatriz Monteiro',  role: 'Fisioterapeuta',        rating: 4.8, reviews:  90, hires: 72,  location: 'Brasília, DF',       city: 'brasília',       state: 'df', tags: ['Neurológica','CREFITO','Clínica'],        priceBase: 230 },
+      { photo: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=200&h=200&fit=crop&crop=faces', name: 'Igor Santana',      role: 'Encanador',             rating: 4.9, reviews:  66, hires: 50,  location: 'Salvador, BA',        city: 'salvador',       state: 'ba', tags: ['Hidráulica','Aquecedor','Emergência'],   priceBase: 145 },
+    ];
+
+    // ── Mapeamento de termos de busca → roles ──────────────────────────────
+    const searchMap = {
+      'eletricista':    ['eletricista'],
+      'encanador':      ['encanador'],
+      'personal':       ['personal trainer'],
+      'personal trainer':['personal trainer'],
+      'pedreiro':       ['pedreiro', 'construtor'],
+      'construtor':     ['pedreiro', 'construtor'],
+      'pintor':         ['pintor','pintora'],
+      'fisioterapeuta': ['fisioterapeuta'],
+      'veterinário':    ['veterinário'],
+      'nutricionista':  ['nutricionista'],
+      'psicólogo':      ['psicóloga','psicólogo'],
+      'psicóloga':      ['psicóloga','psicólogo'],
+      'chef':           ['chef de cozinha'],
+      'cozinheiro':     ['chef de cozinha'],
+      'fotógrafo':      ['fotógrafa','fotógrafo'],
+      'fotógrafa':      ['fotógrafa','fotógrafo'],
+      'professor':      ['professora particular','professor particular'],
+      'professora':     ['professora particular','professor particular'],
+      'cabeleireiro':   ['cabeleireira','cabeleireiro'],
+      'cabeleireira':   ['cabeleireira','cabeleireiro'],
+      'marceneiro':     ['marceneiro'],
+      'médico':         ['médico clínico geral'],
+      'casa & reforma': ['eletricista','encanador','pedreiro','construtor','pintor','pintora','marceneiro'],
+      'saúde':          ['fisioterapeuta','médico clínico geral','nutricionista','psicóloga','psicólogo','veterinário'],
+      'tecnologia':     ['professor particular','professora particular'],
+      'beleza':         ['cabeleireira','cabeleireiro'],
+      'educação & aulas':['professora particular','professor particular'],
+      'eventos':        ['chef de cozinha','fotógrafa','fotógrafo'],
+      'pets':           ['veterinário'],
+    };
+
+    // ── Estado global ───────────────────────────────────────────────────────
+    let currentQuery  = '';
+    let currentSort   = 'rating';
+    let currentMinRating = 0;
+    let currentPriceRange = 'all';
+    let filteredPros  = [];
+
+    // Verifica se usuário é assinante (simulado)
+    function isSubscriber() {
+      try {
+        const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+        return !!user.subscriber;
+      } catch { return false; }
+    }
+
+    // ── Lógica de busca ─────────────────────────────────────────────────────
+    function searchProfessionals(query) {
+      const q = query.toLowerCase().trim();
+
+      // Tenta mapa exato
+      const keywords = searchMap[q];
+      if (keywords) {
+        return allProfessionals.filter(p =>
+          keywords.some(kw => p.role.toLowerCase().includes(kw))
+        );
+      }
+
+      // Busca parcial em role e tags
+      return allProfessionals.filter(p =>
+        p.role.toLowerCase().includes(q) ||
+        p.tags.some(t => t.toLowerCase().includes(q)) ||
+        q.split(' ').some(word => word.length > 2 && p.role.toLowerCase().includes(word))
+      );
+    }
+
+    function applyFilters() {
+      // Lê sort atual
+      const sortEl = document.querySelector('input[name="sort"]:checked');
+      if (sortEl) currentSort = sortEl.value;
+
+      const ratingEl = document.querySelector('input[name="minRating"]:checked');
+      if (ratingEl) currentMinRating = parseFloat(ratingEl.value);
+
+      const priceEl = document.querySelector('input[name="priceRange"]:checked');
+      if (priceEl) currentPriceRange = priceEl.value;
+
+      let list = [...filteredPros];
+
+      // Filtro avaliação mínima
+      if (currentMinRating > 0) {
+        list = list.filter(p => p.rating >= currentMinRating);
+      }
+
+      // Filtro faixa de preço
+      if (currentPriceRange === 'low')  list = list.filter(p => p.priceBase <= 150);
+      if (currentPriceRange === 'mid')  list = list.filter(p => p.priceBase > 150 && p.priceBase <= 300);
+      if (currentPriceRange === 'high') list = list.filter(p => p.priceBase > 300);
+
+      // Ordenação
+      if (currentSort === 'rating')     list.sort((a,b) => b.rating - a.rating);
+      if (currentSort === 'price_asc')  list.sort((a,b) => a.priceBase - b.priceBase);
+      if (currentSort === 'price_desc') list.sort((a,b) => b.priceBase - a.priceBase);
+      if (currentSort === 'hires')      list.sort((a,b) => b.hires - a.hires);
+
+      renderResults(list);
+      updateSortChips();
+    }
+
+    function clearFilters() {
+      document.querySelectorAll('input[name="sort"]')[0].checked = true;
+      document.querySelectorAll('input[name="minRating"]')[0].checked = true;
+      document.querySelectorAll('input[name="priceRange"]')[0].checked = true;
+      currentSort = 'rating';
+      currentMinRating = 0;
+      currentPriceRange = 'all';
+      applyFilters();
+    }
+
+    function setSort(sort, btn) {
+      currentSort = sort;
+      // Sync radio
+      const radio = document.querySelector(`input[name="sort"][value="${sort}"]`);
+      if (radio) radio.checked = true;
+      applyFilters();
+    }
+
+    function updateSortChips() {
+      document.querySelectorAll('.sort-chip').forEach(c => {
+        c.classList.toggle('active', c.onclick?.toString().includes(`'${currentSort}'`));
+      });
+    }
+
+    // ── Renderização ────────────────────────────────────────────────────────
+    function getLevelBadge(p) {
+      if (p.rating >= 4.9 && p.hires >= 80)  return { cls: 'level-top',   label: '🏆 Top' };
+      if (p.rating >= 4.7 && p.hires >= 40)  return { cls: 'level-mid',   label: '✅ Verificado' };
+      return { cls: 'level-basic', label: '🆕 Novo' };
+    }
+
+    function getGroupLabel(list, sort) {
+      if (sort === 'rating') {
+        return [
+          { label: '🏆 Melhores avaliações', filter: p => p.rating >= 4.9 },
+          { label: '✅ Muito bem avaliados',  filter: p => p.rating >= 4.7 && p.rating < 4.9 },
+          { label: '👍 Bem avaliados',        filter: p => p.rating < 4.7 },
+        ];
+      }
+      if (sort === 'hires') {
+        return [
+          { label: '🔥 Mais contratados',    filter: p => p.hires >= 80 },
+          { label: '📈 Em crescimento',       filter: p => p.hires >= 40 && p.hires < 80 },
+          { label: '🆕 Recém chegados',       filter: p => p.hires < 40 },
+        ];
+      }
+      if (sort === 'price_asc') {
+        return [
+          { label: '💰 Melhor custo-benefício', filter: p => p.priceBase <= 150 },
+          { label: '💳 Preço médio',             filter: p => p.priceBase > 150 && p.priceBase <= 300 },
+          { label: '💎 Premium',                 filter: p => p.priceBase > 300 },
+        ];
+      }
+      // price_desc (inverso)
+      return [
+        { label: '💎 Premium',              filter: p => p.priceBase > 300 },
+        { label: '💳 Preço médio',          filter: p => p.priceBase > 150 && p.priceBase <= 300 },
+        { label: '💰 Acessível',            filter: p => p.priceBase <= 150 },
+      ];
+    }
+
+    function renderCard(p) {
+      const subscriber = isSubscriber();
+      const stars = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
+      const badge = getLevelBadge(p);
+      const tagsHTML = p.tags.map(t => `<span class="pro-r-tag">${t}</span>`).join('');
+
+      const contactHTML = subscriber
+        ? `<button class="btn-contact" onclick="contactPro('${p.name.replace(/'/g, "\\'")}')">
+             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.89 9.11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.81 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006 6l.96-.96a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 17.92z"/></svg>
+             Contatar prestador
+           </button>`
+        : `<button class="btn-contact-locked" onclick="openSubscribeModal()">
+             <span class="lock-overlay">
+               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+               Contatar prestador
+             </span>
+           </button>
+           <p class="subscribe-hint">
+             <a href="#" onclick="openSubscribeModal();return false;">Assine</a> para desbloquear
+           </p>`;
+
+      return `
+        <div class="pro-result-card">
+          <span class="pro-level-badge ${badge.cls}">${badge.label}</span>
+          <div class="pro-r-avatar-wrap">
+            <img src="${p.photo}" alt="${p.name}" loading="lazy"
+              onerror="this.parentElement.innerHTML='<div class=pro-r-avatar-fallback>${p.name[0]}</div>'" />
+          </div>
+          <div class="pro-r-name">${p.name}</div>
+          <div class="pro-r-role">${p.role}</div>
+          <div class="pro-r-rating">
+            <span class="stars">${stars}</span>
+            <strong>${p.rating}</strong>
+            <span>(${p.reviews} avaliações)</span>
+          </div>
+          <div class="pro-r-stats">
+            <span>🔥 ${p.hires} contratações</span>
+          </div>
+          <div class="pro-r-location">📍 ${p.location}</div>
+          <div class="pro-r-price">
+            <strong>R$ ${p.priceBase}</strong>
+            <small>por serviço (estimativa)</small>
+          </div>
+          <div class="pro-r-tags">${tagsHTML}</div>
+          <div class="contact-btn-wrap">${contactHTML}</div>
+        </div>`;
+    }
+
+    function renderResults(list) {
+      const container = document.getElementById('resultsContainer');
+      const countEl   = document.getElementById('resultsCount');
+
+      countEl.textContent = `${list.length} prestador${list.length !== 1 ? 'es' : ''} encontrado${list.length !== 1 ? 's' : ''}`;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="results-grid">
+            <div class="empty-state">
+              <div class="emoji">🔍</div>
+              <h3>Nenhum prestador encontrado</h3>
+              <p>Tente buscar por outro serviço ou ajuste os filtros.</p>
+            </div>
+          </div>`;
+        return;
+      }
+
+      const groups = getGroupLabel(list, currentSort);
+      let html = '';
+
+      groups.forEach(group => {
+        const members = list.filter(group.filter);
+        if (members.length === 0) return;
+        html += `<div class="result-group-title">${group.label}</div>`;
+        html += `<div class="results-grid" style="margin-bottom:8px">`;
+        members.forEach(p => { html += renderCard(p); });
+        html += `</div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // ── Busca na página ────────────────────────────────────────────────────
+    function doNewSearch() {
+      const val = document.getElementById('newSearchInput').value.trim();
+      if (!val) { showToast('Digite um serviço para buscar 🔍', ''); return; }
+      const city = '';
+      const params = new URLSearchParams({ q: val, city });
+      window.location.href = `resultados.html?${params.toString()}`;
+    }
+
+    document.getElementById('newSearchInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doNewSearch();
+    });
+
+    // ── Modal de contato ───────────────────────────────────────────────────
+    function contactPro(name) {
+      const old = document.getElementById('contactModal');
+      if (old) old.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'contactModal';
+      modal.innerHTML = `
+        <div class="modal-backdrop" onclick="closeContactModal()"></div>
+        <div class="modal-box">
+          <button class="modal-close" onclick="closeContactModal()">✕</button>
+          <div class="modal-icon">📞</div>
+          <h2 class="modal-title">Entrar em contato</h2>
+          <p class="modal-desc">Você deseja contatar <strong>${name}</strong>.<br>Como prefere se comunicar?</p>
+          <div class="modal-actions">
+            <button class="btn-primary" onclick="showToast('Mensagem enviada para ${name}! ✉️','success'); closeContactModal()">
+              ✉️ Enviar mensagem
+            </button>
+            <button class="btn-secondary" onclick="showToast('Iniciando chamada com ${name}... 📞','success'); closeContactModal()">
+              📞 Ligar agora
+            </button>
+          </div>
+          <p class="modal-note">Seus dados de contato serão compartilhados com o prestador.</p>
+        </div>`;
+      document.body.appendChild(modal);
+      requestAnimationFrame(() => modal.classList.add('open'));
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contactModal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      setTimeout(() => modal.remove(), 300);
+    }
+
+    // ── Modal assinatura ───────────────────────────────────────────────────
+    function openSubscribeModal() {
+      document.getElementById('subscribeModal').classList.add('open');
+    }
+    function closeSubscribeModal() {
+      document.getElementById('subscribeModal').classList.remove('open');
+    }
+    function selectPlan(el) {
+      document.querySelectorAll('.sub-plan').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    function subscribeNow() {
+      // Simula assinatura
+      try {
+        const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+        user.subscriber = true;
+        sessionStorage.setItem('resolveai_user', JSON.stringify(user));
+      } catch {}
+      closeSubscribeModal();
+      showToast('Assinatura ativada! 🎉 Agora você pode contatar prestadores.', 'success');
+      // Re-renderiza para mostrar botões desbloqueados
+      setTimeout(() => applyFilters(), 600);
+    }
+
+    // ── Menu usuário ───────────────────────────────────────────────────────
+    function toggleUserMenu() {
+      document.getElementById('userMenu')?.classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const av = document.getElementById('userAvatar');
+      const mn = document.getElementById('userMenu');
+      if (mn && av && !av.contains(e.target) && !mn.contains(e.target)) mn.classList.remove('open');
+    });
+    function toggleMobileMenu() {
+      const links = document.querySelector('.navbar-links');
+      if (!links) return;
+      const open = links.style.display === 'flex';
+      links.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:white;padding:20px 24px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:99;gap:4px;';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeContactModal(); closeSubscribeModal(); }
+    });
+
+    // ── Init ───────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      // Usuário na navbar
+      const userEl = document.getElementById('userNameNav');
+      if (userEl) {
+        try {
+          const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+          userEl.textContent = user?.name ? user.name.split(' ')[0] : 'Usuário';
+        } catch { userEl.textContent = 'Usuário'; }
+      }
+
+      // Lê parâmetros da URL
+      const params = new URLSearchParams(window.location.search);
+      currentQuery  = params.get('q') || '';
+      const city    = params.get('city') || '';
+
+      // Atualiza UI
+      const termEl = document.getElementById('searchTermTitle');
+      if (termEl) termEl.textContent = currentQuery || 'todos os serviços';
+
+      // Preenche campo nova busca
+      const input = document.getElementById('newSearchInput');
+      if (input && currentQuery) input.value = currentQuery;
+
+      // Título da página
+      document.title = `Resolve Aí – ${currentQuery || 'Resultados'}`;
+
+      // Busca
+      filteredPros = searchProfessionals(currentQuery);
+
+      // Aplica filtros iniciais
+      applyFilters();
+    });
+  </script>
+</body>
+</html>
