@@ -266,6 +266,283 @@
       </div>
     </section>
 
+    <!-- ===== SEÇÃO DE PLANOS ===== -->
+    <section class="plans-section" id="planos">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Assinaturas</span>
+          <h2 class="section-title">Escolha como quer usar o Resolve Aí</h2>
+          <p class="section-desc">Planos pensados para quem contrata e para quem presta serviços</p>
+        </div>
+
+        <div class="plans-grid">
+          <!-- Card Usuário -->
+          <div class="plan-card plan-usuario">
+            <div class="plan-card-header">
+              <div class="plan-icon-wrap" style="background:#fef9c3">👤</div>
+              <div>
+                <h3 class="plan-card-title">Para Usuários</h3>
+                <p class="plan-card-sub">Contrate serviços com confiança</p>
+              </div>
+            </div>
+            <ul class="plan-benefits">
+              <li>
+                <span class="benefit-icon">🏆</span>
+                <div>
+                  <strong>Os melhores da sua região</strong>
+                  <small>Acesse prestadores avaliados e aprovados perto de você</small>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">⭐</span>
+                <div>
+                  <strong>Confiança validada</strong>
+                  <small>Avaliações reais de outros usuários garantem sua segurança</small>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">💰</span>
+                <div>
+                  <strong>Preço que cabe no seu bolso</strong>
+                  <small>Negocie diretamente e escolha o valor que faz sentido pra você</small>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">🔒</span>
+                <div>
+                  <strong>Segurança e praticidade</strong>
+                  <small>Tudo em um só lugar — do contato ao pagamento</small>
+                </div>
+              </li>
+            </ul>
+            <button class="btn-primary plan-cta" onclick="abrirPlanosUsuario()">
+              Saiba Mais
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+
+          <!-- Divisor central -->
+          <div class="plans-divider">
+            <div class="plans-divider-line"></div>
+            <span class="plans-divider-or">ou</span>
+            <div class="plans-divider-line"></div>
+          </div>
+
+          <!-- Card Prestador -->
+          <div class="plan-card plan-prestador">
+            <div class="plan-highlight-badge">🔥 Para profissionais</div>
+            <div class="plan-card-header">
+              <div class="plan-icon-wrap" style="background:#dcfce7">🛠️</div>
+              <div>
+                <h3 class="plan-card-title">Para Prestadores</h3>
+                <p class="plan-card-sub">Expanda seus clientes e aumente sua renda</p>
+              </div>
+            </div>
+            <ul class="plan-benefits">
+              <li>
+                <span class="benefit-icon">📡</span>
+                <div>
+                  <strong>Visibilidade máxima</strong>
+                  <small>Seu perfil aparece em destaque para clientes que buscam o seu serviço</small>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">📣</span>
+                <div>
+                  <strong>Divulgue sem limites</strong>
+                  <small>Mostre seu trabalho, portfólio e conquistas para toda a plataforma</small>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">💵</span>
+                <div>
+                  <strong>Aumente sua renda</strong>
+                  <small>Receba mais pedidos, feche mais contratos e cresça de verdade</small>
+                </div>
+              </li>
+            </ul>
+            <button class="btn-primary plan-cta plan-cta-green" onclick="abrirPlanosPrestador()">
+              Saiba Mais
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MODAL DE PLANOS DO USUÁRIO ===== -->
+    <div id="planosUsuarioModal" class="plans-modal" aria-hidden="true">
+      <div class="plans-modal-backdrop" onclick="fecharPlanosUsuario()"></div>
+      <div class="plans-modal-box">
+        <!-- Botão fechar -->
+        <button class="plans-modal-close" onclick="fecharPlanosUsuario()" aria-label="Fechar">✕</button>
+        <!-- Voltar -->
+        <button class="plans-modal-back" onclick="fecharPlanosUsuario()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><polyline points="15 18 9 12 15 6"/></svg>
+          Voltar
+        </button>
+
+        <div class="plans-modal-header">
+          <span class="section-badge">Planos para Usuários</span>
+          <h2 class="plans-modal-title">Qual plano combina com você?</h2>
+          <p class="plans-modal-subtitle">Escolha entre pagar mensalmente ou economizar com o plano anual</p>
+
+          <!-- Toggle mensal/anual -->
+          <div class="billing-toggle">
+            <span id="toggleLabelMes" class="billing-label active">Mensal</span>
+            <button class="billing-switch" id="billingSwitch" onclick="toggleBilling()" aria-label="Alternar período">
+              <span class="billing-switch-thumb"></span>
+            </button>
+            <span id="toggleLabelAno" class="billing-label">Anual <span class="billing-save-badge">Economize!</span></span>
+          </div>
+        </div>
+
+        <div class="pricing-cards">
+
+          <!-- Plano Com Anúncios -->
+          <div class="pricing-card">
+            <div class="pricing-card-top">
+              <div class="pricing-emoji">📺</div>
+              <h3 class="pricing-name">Básico</h3>
+              <p class="pricing-desc">O essencial para começar a contratar com segurança</p>
+              <div class="pricing-price-wrap">
+                <div class="pricing-price">
+                  <span class="pricing-currency">R$</span>
+                  <span class="pricing-amount" id="priceBasico">19,99</span>
+                  <span class="pricing-period">/mês</span>
+                </div>
+                <p class="pricing-annual-note" id="noteBasico" style="display:none">Cobrado anualmente — R$ 219,84/ano</p>
+              </div>
+            </div>
+
+            <div class="pricing-includes">
+              <p class="pricing-includes-label">✅ O que está incluído:</p>
+              <ul class="pricing-perks">
+                <li><span class="perk-yes">✓</span> Acesso a todos os prestadores da plataforma</li>
+                <li><span class="perk-yes">✓</span> Recomendações de prestadores da sua região</li>
+                <li><span class="perk-yes">✓</span> Pesquisa com filtros avançados</li>
+                <li><span class="perk-yes">✓</span> Negociação direta com o prestador</li>
+                <li><span class="perk-yes">✓</span> Sem taxas em pagamentos via Pix</li>
+              </ul>
+              <p class="pricing-limits-label">⚠️ Limitações deste plano:</p>
+              <ul class="pricing-limits">
+                <li><span class="perk-no">✗</span> Acesso restrito a prestadores verificados</li>
+                <li><span class="perk-no">✗</span> Taxa em pagamentos com cartão</li>
+                <li><span class="perk-no">✗</span> Exibição de anúncios no site</li>
+              </ul>
+            </div>
+
+            <button class="btn-secondary pricing-btn" onclick="assinar('Básico')">Assinar Básico</button>
+          </div>
+
+          <!-- Plano Sem Anúncios -->
+          <div class="pricing-card pricing-card-featured">
+            <div class="pricing-featured-badge">⚡ Mais popular</div>
+            <div class="pricing-card-top">
+              <div class="pricing-emoji">🌟</div>
+              <h3 class="pricing-name">Premium</h3>
+              <p class="pricing-desc">A experiência completa, sem limitações e sem interrupções</p>
+              <div class="pricing-price-wrap">
+                <div class="pricing-price">
+                  <span class="pricing-currency">R$</span>
+                  <span class="pricing-amount" id="pricePremium">25,99</span>
+                  <span class="pricing-period">/mês</span>
+                </div>
+                <p class="pricing-annual-note" id="notePremium" style="display:none">Cobrado anualmente — R$ 295,80/ano</p>
+              </div>
+            </div>
+
+            <div class="pricing-includes">
+              <p class="pricing-includes-label">✅ Tudo do Básico, mais:</p>
+              <ul class="pricing-perks">
+                <li><span class="perk-yes">✓</span> Acesso a todos os prestadores da plataforma</li>
+                <li><span class="perk-yes">✓</span> Recomendações de prestadores da sua região</li>
+                <li><span class="perk-yes">✓</span> Pesquisa com filtros avançados</li>
+                <li><span class="perk-yes">✓</span> Negociação direta com o prestador</li>
+                <li><span class="perk-yes">✓</span> Sem taxas em pagamentos via Pix</li>
+                <li><span class="perk-yes perk-premium">✓</span> <strong>Prestadores verificados desbloqueados</strong></li>
+                <li><span class="perk-yes perk-premium">✓</span> <strong>Isenção total de taxas no cartão</strong></li>
+                <li><span class="perk-yes perk-premium">✓</span> <strong>Plataforma 100% livre de anúncios</strong></li>
+              </ul>
+            </div>
+
+            <button class="btn-primary pricing-btn" onclick="assinar('Premium')">Assinar Premium</button>
+          </div>
+
+        </div><!-- /pricing-cards -->
+      </div><!-- /plans-modal-box -->
+    </div><!-- /planosUsuarioModal -->
+
+    <!-- ===== MODAL DE PLANO DO PRESTADOR ===== -->
+    <div id="planosPrestadorModal" class="plans-modal" aria-hidden="true">
+      <div class="plans-modal-backdrop" onclick="fecharPlanosPrestador()"></div>
+      <div class="plans-modal-box plans-modal-box-prestador">
+        <button class="plans-modal-close" onclick="fecharPlanosPrestador()" aria-label="Fechar">&#10005;</button>
+        <button class="plans-modal-back" onclick="fecharPlanosPrestador()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><polyline points="15 18 9 12 15 6"/></svg>
+          Voltar
+        </button>
+
+        <div class="plans-modal-header">
+          <span class="section-badge" style="background:var(--green-100);color:var(--green-600)">Plano para Prestadores</span>
+          <h2 class="plans-modal-title">Impulsione sua carreira com o Resolve&#160;A&#237;</h2>
+          <p class="plans-modal-subtitle">Um &#250;nico plano completo &#8212; tudo que voc&#234; precisa para crescer de verdade</p>
+
+          <div class="billing-toggle">
+            <span id="toggleLabelMesPrest" class="billing-label active">Mensal</span>
+            <button class="billing-switch" id="billingSwitchPrest" onclick="toggleBillingPrestador()" aria-label="Alternar per&#237;odo">
+              <span class="billing-switch-thumb"></span>
+            </button>
+            <span id="toggleLabelAnoPrest" class="billing-label">Anual <span class="billing-save-badge">Economize!</span></span>
+          </div>
+        </div>
+
+        <div class="pricing-cards pricing-cards-single">
+          <div class="pricing-card pricing-card-prestador">
+            <div class="pricing-featured-badge" style="background:var(--green-500)">&#128296; Plano Profissional</div>
+            <div class="pricing-card-top">
+              <div class="pricing-emoji">&#128640;</div>
+              <h3 class="pricing-name">Prestador Pro</h3>
+              <p class="pricing-desc">A assinatura definitiva para quem leva seu trabalho a s&#233;rio</p>
+              <div class="pricing-price-wrap">
+                <div class="pricing-price">
+                  <span class="pricing-currency">R$</span>
+                  <span class="pricing-amount" id="pricePrestador">32,99</span>
+                  <span class="pricing-period">/m&#234;s</span>
+                </div>
+                <p class="pricing-annual-note" id="notePrestador" style="display:none">Cobrado anualmente &#8212; R$ 371,88/ano</p>
+              </div>
+            </div>
+
+            <div class="pricing-includes">
+              <p class="pricing-includes-label">&#9989; Tudo inclu&#237;do no plano:</p>
+              <ul class="pricing-perks">
+                <li><span class="perk-yes">&#10003;</span> Acesso a todos os prestadores da plataforma</li>
+                <li><span class="perk-yes">&#10003;</span> Recomenda&#231;&#245;es de prestadores da sua regi&#227;o</li>
+                <li><span class="perk-yes">&#10003;</span> Pesquisa com filtros avan&#231;ados</li>
+                <li><span class="perk-yes">&#10003;</span> Negocia&#231;&#227;o direta com clientes</li>
+                <li><span class="perk-yes">&#10003;</span> Sem taxas em pagamentos via Pix</li>
+                <li><span class="perk-yes perk-premium">&#10003;</span> <strong>Prestadores verificados desbloqueados</strong></li>
+                <li><span class="perk-yes perk-premium">&#10003;</span> <strong>Isen&#231;&#227;o total de taxas no cart&#227;o</strong></li>
+                <li><span class="perk-yes perk-premium">&#10003;</span> <strong>Plataforma 100% livre de an&#250;ncios</strong></li>
+                <li><span class="perk-yes perk-green">&#10003;</span> <strong>Divulga&#231;&#227;o do seu servi&#231;o para toda a plataforma</strong></li>
+                <li><span class="perk-yes perk-green">&#10003;</span> <strong>Perfil em destaque &#8212; mais visibilidade, mais clientes</strong></li>
+                <li><span class="perk-yes perk-green">&#10003;</span> <strong>Aumente sua renda mensal com mais contratos</strong></li>
+                <li><span class="perk-yes perk-green">&#10003;</span> <strong>Valida&#231;&#227;o do seu trabalho via feedbacks verificados</strong></li>
+              </ul>
+            </div>
+
+            <button class="btn-primary pricing-btn pricing-btn-green" onclick="assinarPrestador()">
+              Assinar Prestador Pro
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <p class="pricing-guarantee">&#128274; Cancele quando quiser, sem multas ou burocracia</p>
+          </div>
+        </div>
+
+      </div><!-- /plans-modal-box-prestador -->
+    </div><!-- /planosPrestadorModal -->
+
   </main>
 
   <!-- FOOTER -->
@@ -316,7 +593,7 @@
       <div class="footer-col">
         <h4>Contato</h4>
         <ul>
-          <li><a href="/cdn-cgi/l/email-protection#294a46475d485d46695b4c5a46455f4c4840074a4644074b5b">📧 <span class="__cf_email__" data-cfemail="22414d4c5643564d625047514d4e5447434b0c414d4f0c4050">empresarial_resolveai@gmail.com</span></a></li>
+          <li><a href="/cdn-cgi/l/email-protection#294a46475d485d46695b4c5a46455f4c4840074a4644074b5b">📧 <span class="__cf_email__" data-cfemail="22414d4c5643564d625047514d4e5447434b0c414d4f0c4050"><span class="__cf_email__" data-cfemail="b9dcd4c9cbdccad8cbd0d8d5e6cbdccad6d5cfdcd8d0f9ded4d8d0d597dad6d4">[email&#160;protected]</span></span></a></li>
           <li><a href="tel:08000000000">📞 0800 000 0000</a></li>
           <li><a href="#">💬 Chat ao vivo</a></li>
           <li><a href="#">📍 Ceres, Goiás</a></li>
@@ -335,7 +612,7 @@
     </div>
   </footer>
 
-  <script src="auth.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="auth.js"></script>
   <script src="home.js"></script>
   <script>
     // ---- Banner de localização ----
@@ -357,9 +634,119 @@
     }
 
     function dismissLocationBanner() {
+      sessionStorage.setItem('locationBannerDismissed', '1');
       const banner = document.getElementById('locationBanner');
       if (banner) banner.style.display = 'none';
-      sessionStorage.setItem('locationBannerDismissed', '1');
+    }
+  </script>
+
+  <script>
+    // ---- Planos do Usuário ----
+    var billingAnual = false;
+
+    function abrirPlanosUsuario() {
+      var modal = document.getElementById('planosUsuarioModal');
+      if (!modal) return;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function fecharPlanosUsuario() {
+      var modal = document.getElementById('planosUsuarioModal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function toggleBilling() {
+      billingAnual = !billingAnual;
+      var sw = document.getElementById('billingSwitch');
+      var labelMes = document.getElementById('toggleLabelMes');
+      var labelAno = document.getElementById('toggleLabelAno');
+      var priceBasico   = document.getElementById('priceBasico');
+      var pricePremium  = document.getElementById('pricePremium');
+      var noteBasico    = document.getElementById('noteBasico');
+      var notePremium   = document.getElementById('notePremium');
+
+      if (billingAnual) {
+        sw.classList.add('annual');
+        labelMes.classList.remove('active');
+        labelAno.classList.add('active');
+        priceBasico.textContent  = '18,32';
+        pricePremium.textContent = '24,65';
+        noteBasico.style.display   = 'block';
+        notePremium.style.display  = 'block';
+      } else {
+        sw.classList.remove('annual');
+        labelMes.classList.add('active');
+        labelAno.classList.remove('active');
+        priceBasico.textContent  = '19,99';
+        pricePremium.textContent = '25,99';
+        noteBasico.style.display   = 'none';
+        notePremium.style.display  = 'none';
+      }
+    }
+
+    function assinar(plano) {
+      var periodo = billingAnual ? 'anual' : 'mensal';
+      showToast('Redirecionando para o plano ' + plano + ' (' + periodo + ')… 🚀', 'success');
+      setTimeout(function() { fecharPlanosUsuario(); }, 1800);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { fecharPlanosUsuario(); fecharPlanosPrestador(); }
+    });
+  </script>
+
+  <script>
+    // ---- Plano do Prestador ----
+    var billingAnualPrest = false;
+
+    function abrirPlanosPrestador() {
+      var modal = document.getElementById('planosPrestadorModal');
+      if (!modal) return;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function fecharPlanosPrestador() {
+      var modal = document.getElementById('planosPrestadorModal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function toggleBillingPrestador() {
+      billingAnualPrest = !billingAnualPrest;
+      var sw        = document.getElementById('billingSwitchPrest');
+      var labelMes  = document.getElementById('toggleLabelMesPrest');
+      var labelAno  = document.getElementById('toggleLabelAnoPrest');
+      var price     = document.getElementById('pricePrestador');
+      var note      = document.getElementById('notePrestador');
+
+      if (billingAnualPrest) {
+        sw.classList.add('annual');
+        labelMes.classList.remove('active');
+        labelAno.classList.add('active');
+        price.textContent = '30,99';
+        note.style.display = 'block';
+      } else {
+        sw.classList.remove('annual');
+        labelMes.classList.add('active');
+        labelAno.classList.remove('active');
+        price.textContent = '32,99';
+        note.style.display = 'none';
+      }
+    }
+
+    function assinarPrestador() {
+      var periodo = billingAnualPrest ? 'anual' : 'mensal';
+      showToast('Redirecionando para o Prestador Pro (' + periodo + ')\u2026 \uD83D\uDE80', 'success');
+      setTimeout(function() { fecharPlanosPrestador(); }, 1800);
     }
   </script>
 </body>
