@@ -64,6 +64,13 @@
     </button>
   </header>
 
+  <!-- BANNER DE LOCALIZAÇÃO (visível apenas quando não há cidade salva) -->
+  <div id="locationBanner" class="location-banner" style="display:none;">
+    <span>📍 Quer ver profissionais perto de você?</span>
+    <button class="btn-location-allow" onclick="allowLocationFromBanner()">Permitir localização</button>
+    <button class="btn-location-dismiss" onclick="dismissLocationBanner()" aria-label="Fechar">✕</button>
+  </div>
+
   <main>
 
     <!-- HERO -->
@@ -307,7 +314,7 @@
       <div class="footer-col">
         <h4>Contato</h4>
         <ul>
-          <li><a href="mailto:contato@resolveai.com.br">📧 contato@resolveai.com.br</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#294a46475d485d46695b4c5a46455f4c4840074a4644074b5b">📧 <span class="__cf_email__" data-cfemail="22414d4c5643564d625047514d4e5447434b0c414d4f0c4050">[email&#160;protected]</span></a></li>
           <li><a href="tel:08000000000">📞 0800 000 0000</a></li>
           <li><a href="#">💬 Chat ao vivo</a></li>
           <li><a href="#">📍 São Paulo, SP</a></li>
@@ -328,5 +335,30 @@
 
   <script src="auth.js"></script>
   <script src="home.js"></script>
+  <script>
+    // ---- Banner de localização ----
+    document.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('locationBanner');
+      if (!banner) return;
+      const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+      const hasCity    = !!user.cidade;
+      const hasCoords  = !!sessionStorage.getItem('resolveai_coords');
+      const dismissed  = sessionStorage.getItem('locationBannerDismissed');
+      if (!hasCity && !hasCoords && !dismissed) {
+        banner.style.display = 'flex';
+      }
+    });
+
+    function allowLocationFromBanner() {
+      dismissLocationBanner();
+      requestGeolocation();
+    }
+
+    function dismissLocationBanner() {
+      const banner = document.getElementById('locationBanner');
+      if (banner) banner.style.display = 'none';
+      sessionStorage.setItem('locationBannerDismissed', '1');
+    }
+  </script>
 </body>
 </html>

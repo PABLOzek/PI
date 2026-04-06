@@ -72,6 +72,17 @@
       </div>
     </div>
 
+    <div class="input-group">
+      <label for="cidade">Cidade <span class="required">*</span></label>
+      <div class="input-wrapper">
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <input type="text" id="cidade" placeholder="Ex: São Paulo, SP" required autocomplete="address-level2" />
+        <button class="toggle-password" type="button" onclick="detectarLocalizacao()" title="Usar minha localização" aria-label="Detectar localização">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9" stroke-dasharray="2 4"/></svg>
+        </button>
+      </div>
+    </div>
+
     <!-- Campo profissão (só aparece para prestador) -->
     <div class="input-group" id="profissaoGroup" style="display:none;">
       <label for="profissao">Profissão / Área de atuação <span class="required">*</span></label>

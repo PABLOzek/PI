@@ -121,7 +121,48 @@ function checkPasswordStrength(password) {
   label.style.color     = cfg.color;
 }
 
-// ---- Tipo de conta (registro) ----
+/**
+ * Tenta detectar a cidade do usuário via Geolocation API + reverse geocoding
+ */
+function detectarLocalizacao() {
+  if (!navigator.geolocation) {
+    showToast('Geolocalização não suportada neste navegador.', 'error');
+    return;
+  }
+  const cidadeInput = document.getElementById('cidade');
+  if (cidadeInput) { cidadeInput.placeholder = 'Detectando…'; cidadeInput.disabled = true; }
+
+  navigator.geolocation.getCurrentPosition(
+    async pos => {
+      try {
+        const { latitude, longitude } = pos.coords;
+        const res  = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=pt`);
+        const data = await res.json();
+        const addr = data.address || {};
+        const city = addr.city || addr.town || addr.village || addr.county || '';
+        const state = addr.state_code || addr.state || '';
+        if (cidadeInput) {
+          cidadeInput.value    = city ? (state ? `${city}, ${state}` : city) : '';
+          cidadeInput.disabled = false;
+          cidadeInput.placeholder = 'Ex: São Paulo, SP';
+        }
+        // Salva coords para uso na home
+        sessionStorage.setItem('resolveai_coords', JSON.stringify({ lat: latitude, lng: longitude, city: cidadeInput?.value || '' }));
+        showToast('Localização detectada! 📍', 'success');
+      } catch {
+        if (cidadeInput) { cidadeInput.disabled = false; cidadeInput.placeholder = 'Ex: São Paulo, SP'; }
+        showToast('Não foi possível obter a cidade. Digite manualmente.', 'error');
+      }
+    },
+    () => {
+      if (cidadeInput) { cidadeInput.disabled = false; cidadeInput.placeholder = 'Ex: São Paulo, SP'; }
+      showToast('Permissão de localização negada. Digite sua cidade.', 'error');
+    },
+    { timeout: 10000 }
+  );
+}
+
+
 
 /**
  * Exibe ou oculta o campo de profissão de acordo com o tipo selecionado
@@ -181,6 +222,7 @@ function handleRegister() {
   const fullName       = document.getElementById('fullName')?.value.trim();
   const email          = document.getElementById('email')?.value.trim();
   const cpf            = document.getElementById('cpf')?.value;
+  const cidade         = document.getElementById('cidade')?.value.trim();
   const profissao      = document.getElementById('profissao')?.value.trim();
   const password       = document.getElementById('regPassword')?.value;
   const confirmPass    = document.getElementById('confirmPassword')?.value;
@@ -191,6 +233,7 @@ function handleRegister() {
   if (!fullName || fullName.length < 3){ showToast('Informe seu nome completo.', 'error'); return; }
   if (!isValidEmail(email))           { showToast('Informe um e-mail válido.', 'error'); return; }
   if (!isValidCPF(cpf))               { showToast('Informe um CPF válido.', 'error'); return; }
+  if (!cidade || cidade.length < 2)   { showToast('Informe sua cidade.', 'error'); return; }
   if (accountType === 'prestador' && !profissao) { showToast('Informe sua profissão.', 'error'); return; }
   if (!password || password.length < 8){ showToast('A senha deve ter pelo menos 8 caracteres.', 'error'); return; }
   if (password !== confirmPass)       { showToast('As senhas não coincidem.', 'error'); return; }
@@ -204,6 +247,7 @@ function handleRegister() {
       name: fullName,
       email,
       cpf,
+      cidade,
       type: accountType,
       profissao: accountType === 'prestador' ? profissao : null,
     }));

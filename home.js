@@ -5,19 +5,95 @@
 
 // Fotos: Unsplash — licença gratuita (unsplash.com/license)
 const professionals = [
-  { photo: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=200&h=200&fit=crop&crop=faces', name: 'Carlos Silva', role: 'Eletricista', rating: 4.9, reviews: 128, location: 'São Paulo, SP', tags: ['Residencial', 'Comercial', 'CREA'] },
-  { photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&h=200&fit=crop&crop=faces', name: 'Roberto Alves', role: 'Encanador', rating: 4.8, reviews: 95, location: 'Rio de Janeiro, RJ', tags: ['Hidráulica', 'Reformas'] },
-  { photo: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=faces', name: 'Fernanda Costa', role: 'Personal Trainer', rating: 5.0, reviews: 210, location: 'Belo Horizonte, MG', tags: ['Musculação', 'Funcional', 'CREF'] },
-  { photo: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=200&h=200&fit=crop&crop=faces', name: 'João Pereira', role: 'Pedreiro / Construtor', rating: 4.7, reviews: 67, location: 'Curitiba, PR', tags: ['Alvenaria', 'Reboco', 'Reformas'] },
-  { photo: 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=200&h=200&fit=crop&crop=faces', name: 'Ana Rodrigues', role: 'Pintora', rating: 4.9, reviews: 84, location: 'Porto Alegre, RS', tags: ['Residencial', 'Textura', 'Papel-parede'] },
-  { photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=faces', name: 'Dra. Paula Lima', role: 'Fisioterapeuta', rating: 5.0, reviews: 173, location: 'São Paulo, SP', tags: ['CREFITO', 'Ortopedia', 'Domiciliar'] },
-  { photo: 'https://images.unsplash.com/photo-1606214174585-fe31582dc6ee?w=200&h=200&fit=crop&crop=faces', name: 'Marcos Souza', role: 'Veterinário', rating: 4.8, reviews: 112, location: 'Salvador, BA', tags: ['CRMV', 'Pets', 'Domiciliar'] },
-  { photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=faces', name: 'Lúcia Ferreira', role: 'Professora Particular', rating: 4.9, reviews: 201, location: 'Fortaleza, CE', tags: ['Exatas', 'Vestibular', 'Online'] },
-  { photo: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=200&fit=crop&crop=faces', name: 'Chef Tiago Melo', role: 'Chef de Cozinha', rating: 4.7, reviews: 58, location: 'Recife, PE', tags: ['Eventos', 'Italiana', 'Domiciliar'] },
-  { photo: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&h=200&fit=crop&crop=faces', name: 'Bruna Andrade', role: 'Cabeleireira', rating: 4.8, reviews: 147, location: 'São Paulo, SP', tags: ['Coloração', 'Corte', 'Tratamentos'] },
-  { photo: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=200&h=200&fit=crop&crop=faces', name: 'Diego Nascimento', role: 'Marceneiro', rating: 4.9, reviews: 76, location: 'Campinas, SP', tags: ['Móveis planejados', 'Reparos'] },
-  { photo: 'https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=200&h=200&fit=crop&crop=faces', name: 'Camila Torres', role: 'Fotógrafa', rating: 5.0, reviews: 234, location: 'Rio de Janeiro, RJ', tags: ['Casamentos', 'Eventos', 'Book'] },
+  { photo: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=200&h=200&fit=crop&crop=faces', name: 'Carlos Silva',    role: 'Eletricista',          rating: 4.9, reviews: 128, location: 'São Paulo, SP',      city: 'são paulo',      tags: ['Residencial', 'Comercial', 'CREA'] },
+  { photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&h=200&fit=crop&crop=faces', name: 'Roberto Alves',   role: 'Encanador',            rating: 4.8, reviews:  95, location: 'Rio de Janeiro, RJ',  city: 'rio de janeiro', tags: ['Hidráulica', 'Reformas'] },
+  { photo: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=faces', name: 'Fernanda Costa',  role: 'Personal Trainer',     rating: 5.0, reviews: 210, location: 'Belo Horizonte, MG', city: 'belo horizonte', tags: ['Musculação', 'Funcional', 'CREF'] },
+  { photo: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=200&h=200&fit=crop&crop=faces', name: 'João Pereira',    role: 'Pedreiro / Construtor', rating: 4.7, reviews:  67, location: 'Curitiba, PR',        city: 'curitiba',       tags: ['Alvenaria', 'Reboco', 'Reformas'] },
+  { photo: 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=200&h=200&fit=crop&crop=faces', name: 'Ana Rodrigues',   role: 'Pintora',              rating: 4.9, reviews:  84, location: 'Porto Alegre, RS',    city: 'porto alegre',   tags: ['Residencial', 'Textura', 'Papel-parede'] },
+  { photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=faces', name: 'Dra. Paula Lima',  role: 'Fisioterapeuta',       rating: 5.0, reviews: 173, location: 'São Paulo, SP',      city: 'são paulo',      tags: ['CREFITO', 'Ortopedia', 'Domiciliar'] },
+  { photo: 'https://images.unsplash.com/photo-1606214174585-fe31582dc6ee?w=200&h=200&fit=crop&crop=faces', name: 'Marcos Souza',    role: 'Veterinário',          rating: 4.8, reviews: 112, location: 'Salvador, BA',        city: 'salvador',       tags: ['CRMV', 'Pets', 'Domiciliar'] },
+  { photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=faces', name: 'Lúcia Ferreira',  role: 'Professora Particular', rating: 4.9, reviews: 201, location: 'Fortaleza, CE',       city: 'fortaleza',      tags: ['Exatas', 'Vestibular', 'Online'] },
+  { photo: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=200&fit=crop&crop=faces', name: 'Chef Tiago Melo', role: 'Chef de Cozinha',      rating: 4.7, reviews:  58, location: 'Recife, PE',          city: 'recife',         tags: ['Eventos', 'Italiana', 'Domiciliar'] },
+  { photo: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&h=200&fit=crop&crop=faces', name: 'Bruna Andrade',   role: 'Cabeleireira',         rating: 4.8, reviews: 147, location: 'São Paulo, SP',      city: 'são paulo',      tags: ['Coloração', 'Corte', 'Tratamentos'] },
+  { photo: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=200&h=200&fit=crop&crop=faces', name: 'Diego Nascimento',role: 'Marceneiro',           rating: 4.9, reviews:  76, location: 'Campinas, SP',        city: 'campinas',       tags: ['Móveis planejados', 'Reparos'] },
+  { photo: 'https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=200&h=200&fit=crop&crop=faces', name: 'Camila Torres',   role: 'Fotógrafa',            rating: 5.0, reviews: 234, location: 'Rio de Janeiro, RJ',  city: 'rio de janeiro', tags: ['Casamentos', 'Eventos', 'Book'] },
 ];
+
+// ============================================================
+// GEOLOCALIZAÇÃO — detecta cidade ao carregar a home
+// ============================================================
+
+/** Retorna a cidade guardada na sessão (cadastro ou geo) */
+function getUserCity() {
+  // 1) cidade cadastrada no registro
+  try {
+    const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+    if (user.cidade) return user.cidade.toLowerCase().split(',')[0].trim();
+  } catch {}
+  // 2) coords detectadas na tela de registro
+  try {
+    const coords = JSON.parse(sessionStorage.getItem('resolveai_coords') || '{}');
+    if (coords.city) return coords.city.toLowerCase().split(',')[0].trim();
+  } catch {}
+  return null;
+}
+
+/**
+ * Solicita geolocalização do navegador, faz reverse geocoding e
+ * atualiza o carrossel com profissionais da cidade detectada.
+ */
+function requestGeolocation() {
+  if (!navigator.geolocation) return;
+
+  navigator.geolocation.getCurrentPosition(
+    async pos => {
+      try {
+        const { latitude, longitude } = pos.coords;
+        const res  = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=pt`);
+        const data = await res.json();
+        const addr = data.address || {};
+        const city = (addr.city || addr.town || addr.village || addr.county || '').toLowerCase();
+        const stateCode = (addr.state_code || '').toUpperCase();
+        if (city) {
+          const displayCity = stateCode ? `${capitalize(city)}, ${stateCode}` : capitalize(city);
+          sessionStorage.setItem('resolveai_coords', JSON.stringify({ lat: latitude, lng: longitude, city: displayCity }));
+          // Atualiza campo de localização na hero
+          const locInput = document.querySelector('.search-location-wrap input');
+          if (locInput && !locInput.value) locInput.value = displayCity;
+          // Reconstrói carrossel com lista ordenada
+          rebuildCarouselForCity(city);
+          updateCarouselTitle(displayCity);
+        }
+      } catch { /* falha silenciosa — carrossel padrão */ }
+    },
+    () => { /* usuário negou — mantém carrossel padrão */ },
+    { timeout: 8000 }
+  );
+}
+
+/**
+ * Ordena profissionais: os da cidade do usuário primeiro,
+ * mantendo a ordem original dentro de cada grupo.
+ */
+function getSortedProfessionals(userCity) {
+  if (!userCity) return professionals;
+  const local  = professionals.filter(p => p.city === userCity);
+  const others = professionals.filter(p => p.city !== userCity);
+  return [...local, ...others];
+}
+
+/** Atualiza o subtítulo da seção de profissionais */
+function updateCarouselTitle(cityName) {
+  const desc = document.querySelector('#profissionais .section-desc');
+  if (desc) desc.textContent = `Profissionais próximos de ${cityName} e disponíveis agora`;
+}
+
+/** Reconstrói o carrossel com lista ordenada por cidade */
+function rebuildCarouselForCity(city) {
+  const sorted = getSortedProfessionals(city);
+  buildCarousel(sorted);
+  startAutoSlide();
+}
 
 // ============================================================
 // CARROSSEL — usa translateX no wrapper do track
@@ -31,7 +107,8 @@ function getVisibleCount() {
   return 3;
 }
 
-function buildCarousel() {
+function buildCarousel(list) {
+  list = list || getSortedProfessionals(getUserCity()) || professionals;
   const track = document.getElementById('carouselTrack');
   const dots  = document.getElementById('carouselDots');
   if (!track) return;
@@ -41,7 +118,7 @@ function buildCarousel() {
   track.style.transition = 'none';
   track.style.transform  = 'translateX(0)';
 
-  professionals.forEach(pro => {
+  list.forEach(pro => {
     const card = document.createElement('div');
     card.className = 'pro-card';
     const stars    = '★'.repeat(Math.round(pro.rating)) + '☆'.repeat(5 - Math.round(pro.rating));
@@ -70,7 +147,7 @@ function buildCarousel() {
 
   // Dots
   if (dots) {
-    const pages = Math.ceil(professionals.length / getVisibleCount());
+    const pages = Math.ceil(list.length / getVisibleCount());
     dots.innerHTML = '';
     for (let i = 0; i < pages; i++) {
       const dot = document.createElement('div');
@@ -86,10 +163,10 @@ function goToSlide(index) {
   if (!track) return;
 
   const visible  = getVisibleCount();
-  const pages    = Math.ceil(professionals.length / visible);
+  const totalCards = track.children.length;
+  const pages    = Math.ceil(totalCards / visible);
   currentSlide   = ((index % pages) + pages) % pages;
 
-  // Cada card tem 260px de largura + 20px de gap = 280px por passo
   const CARD_W   = 260;
   const CARD_GAP = 20;
   const offset   = -(currentSlide * visible * (CARD_W + CARD_GAP));
@@ -101,7 +178,9 @@ function goToSlide(index) {
 }
 
 function slideCarousel(direction) {
-  const pages = Math.ceil(professionals.length / getVisibleCount());
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+  const pages = Math.ceil(track.children.length / getVisibleCount());
   goToSlide((currentSlide + direction + pages) % pages);
 }
 
@@ -119,7 +198,7 @@ function stopAutoSlide() {
 }
 
 // ============================================================
-// MODAL DE CONTATO — substitui "Contratar"
+// MODAL DE CONTATO
 // ============================================================
 function contactPro(name) {
   const old = document.getElementById('contactModal');
@@ -244,9 +323,25 @@ function initAnimations() {
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  buildCarousel();
+  // Preenche campo de localização hero com cidade da sessão
+  const userCity = getUserCity();
+  const locInput = document.querySelector('.search-location-wrap input');
+  if (locInput && userCity) locInput.value = capitalize(userCity);
+
+  // Monta carrossel já ordenado pela cidade cadastrada
+  buildCarousel(getSortedProfessionals(userCity));
+
+  // Se tem cidade salva, atualiza título
+  try {
+    const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+    if (user.cidade) updateCarouselTitle(user.cidade);
+  } catch {}
+
   initAnimations();
   startAutoSlide();
+
+  // Solicita geolocalização em segundo plano para refinar
+  requestGeolocation();
 
   const track = document.getElementById('carouselTrack');
   if (track) {
@@ -262,4 +357,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-window.addEventListener('resize', () => { buildCarousel(); startAutoSlide(); });
+window.addEventListener('resize', () => {
+  buildCarousel(getSortedProfessionals(getUserCity()));
+  startAutoSlide();
+});
+
+
+// ============================================================
+// HELPERS
+// ============================================================
+function capitalize(str) {
+  return (str || '').replace(/\b\w/g, c => c.toUpperCase());
+}
