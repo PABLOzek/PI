@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resolve Aí – Início</title>
+  <!--
+    ORDEM IMPORTA: style.css primeiro (variáveis + reset com correção de scroll),
+    depois home.css (estilos específicos da página).
+  -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="home.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /*
+      CORREÇÃO INLINE DE EMERGÊNCIA — garante scroll mesmo se algum
+      outro CSS externo sobrescrever as regras do style.css.
+      Isso é a última linha de defesa.
+    */
+    html { overflow: visible !important; }
+    body { overflow-x: clip !important; overflow-y: visible !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <a href="home.html" class="navbar-logo">
+      <img src="logo_resolveai.jpeg" alt="Resolve Aí" class="nav-logo-img" />
+    </a>
+    <nav class="navbar-links">
+      <a href="#servicos"       class="nav-link">Serviços</a>
+      <a href="#profissionais"  class="nav-link">Profissionais</a>
+      <a href="#sobre"          class="nav-link">Sobre</a>
+    </nav>
+    <div class="navbar-user">
+      <a href="#busca" class="btn-secondary nav-search-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Buscar prestador
+      </a>
+      <div class="user-avatar" id="userAvatar" onclick="toggleUserMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="userNameNav">Usuário</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="user-menu" id="userMenu">
+        <a href="#" class="user-menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Meu perfil
+        </a>
+        <a href="#" class="user-menu-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Minhas conversas
+        </a>
+        <div class="menu-divider"></div>
+        <a href="index.html" class="user-menu-item logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sair
+        </a>
+      </div>
+    </div>
+    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="busca">
+      <div class="hero-content">
+        <div class="hero-badge">✨ O serviço certo, na hora certa</div>
+        <h1 class="hero-title">
+          Encontre o profissional<br>
+          <span class="highlight">perfeito</span> para você
+        </h1>
+        <p class="hero-desc">Conectamos você a prestadores de serviços qualificados em toda a região. Rápido, seguro e confiável.</p>
+        <div class="search-bar">
+          <div class="search-input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="heroSearch" placeholder="Que serviço você precisa?" />
+          </div>
+          <div class="search-location-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <input type="text" placeholder="Sua cidade" />
+          </div>
+          <button class="btn-primary search-btn" onclick="handleSearch()">Buscar</button>
+        </div>
+        <div class="hero-tags">
+          <span class="tag" onclick="quickSearch(this)">🔧 Eletricista</span>
+          <span class="tag" onclick="quickSearch(this)">🚿 Encanador</span>
+          <span class="tag" onclick="quickSearch(this)">💪 Personal</span>
+          <span class="tag" onclick="quickSearch(this)">🏗️ Pedreiro</span>
+          <span class="tag" onclick="quickSearch(this)">🎨 Pintor</span>
+          <span class="tag" onclick="quickSearch(this)">💆 Fisioterapeuta</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card card-1">
+          <div class="hc-avatar" style="background:#fbbf24">⭐</div>
+          <div><strong>4.9</strong><br><small>Avaliação média</small></div>
+        </div>
+        <div class="hero-card card-2">
+          <div class="hc-avatar" style="background:#22c55e">✓</div>
+          <div><strong>+2.400</strong><br><small>Profissionais ativos</small></div>
+        </div>
+        <div class="hero-card card-3">
+          <div class="hc-avatar" style="background:#3b82f6">🏠</div>
+          <div><strong>98%</strong><br><small>Satisfação</small></div>
+        </div>
+        <div class="hero-illustration">
+          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="150" r="130" fill="#fef9c3" opacity="0.5"/>
+            <circle cx="150" cy="100" r="50" fill="#fbbf24"/>
+            <rect x="80" y="160" width="140" height="100" rx="20" fill="#1d4ed8"/>
+            <circle cx="115" cy="185" r="15" fill="#fff" opacity="0.3"/>
+            <circle cx="150" cy="185" r="15" fill="#fff" opacity="0.3"/>
+            <circle cx="185" cy="185" r="15" fill="#fff" opacity="0.3"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIAS -->
+    <section class="categories-section" id="servicos">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Categorias</span>
+          <h2 class="section-title">O que você precisa hoje?</h2>
+          <p class="section-desc">Explore centenas de serviços organizados por área</p>
+        </div>
+        <div class="categories-grid">
+          <div class="category-card" onclick="filterByCategory('Casa & Reforma')">
+            <div class="cat-icon" style="background:#fef9c3;color:#d97706">🏠</div>
+            <span>Casa & Reforma</span><small>142 profissionais</small>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Saúde')">
+            <div class="cat-icon" style="background:#dcfce7;color:#16a34a">❤️</div>
+            <span>Saúde & Bem-estar</span><small>98 profissionais</small>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Tecnologia')">
+            <div class="cat-icon" style="background:#dbeafe;color:#2563eb">💻</div>
+            <span>Tecnologia</span><small>76 profissionais</small>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Beleza')">
+            <div class="cat-icon" style="background:#fce7f3;color:#db2777">💅</div>
+            <span>Beleza & Estética</span><small>120 profissionais</small>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Educação')">
+            <div class="cat-icon" style="background:#ede9fe;color:#7c3aed">📚</div>
+            <span>Educação & Aulas</span><small>65 profissionais</small>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Eventos')">
+            <div class="cat-icon" style="background:#ffedd5;color:#ea580c">🎉</div>
+            <span>Eventos</span><small>54 profissionais</small>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Pets')">
+            <div class="cat-icon" style="background:#ecfdf5;color:#059669">🐾</div>
+            <span>Pets</span><small>38 profissionais</small>
+          </div>
+          <div class="category-card" onclick="filterByCategory('Transporte')">
+            <div class="cat-icon" style="background:#f0f9ff;color:#0284c7">🚗</div>
+            <span>Transporte & Frete</span><small>47 profissionais</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARROSSEL -->
+    <section class="carousel-section" id="profissionais">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Em destaque</span>
+          <h2 class="section-title">Profissionais para você</h2>
+          <p class="section-desc">Veja quem está disponível agora na sua região</p>
+        </div>
+        <div class="carousel-wrapper">
+          <button class="carousel-btn" onclick="slideCarousel(-1)" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="carousel-track" id="carouselTrack"></div>
+          <button class="carousel-btn" onclick="slideCarousel(1)" aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </section>
+
+    <!-- BUSCA ESPECÍFICA -->
+    <section class="specific-search-section">
+      <div class="container">
+        <div class="specific-search-card">
+          <div class="ss-content">
+            <span class="section-badge">Busca avançada</span>
+            <h2>Não encontrou o que precisa?</h2>
+            <p>Use nossa busca avançada para encontrar exatamente o serviço que você precisa, com filtros por localidade, avaliação e preço.</p>
+            <div class="ss-search-bar">
+              <input type="text" placeholder="Descreva o serviço que precisa..." id="specificSearch" />
+              <button class="btn-primary" onclick="handleSpecificSearch()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Buscar agora
+              </button>
+            </div>
+            <div class="ss-filters">
+              <button class="filter-chip active">Todos</button>
+              <button class="filter-chip">Melhor avaliados</button>
+              <button class="filter-chip">Mais próximos</button>
+              <button class="filter-chip">Menor preço</button>
+              <button class="filter-chip">Disponível hoje</button>
+            </div>
+          </div>
+          <div class="ss-visual">
+            <div class="ss-illustration">🔍</div>
+            <div class="ss-stat"><strong>+5.000</strong> serviços cadastrados</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section class="how-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Simples assim</span>
+          <h2 class="section-title">Como funciona?</h2>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <div class="step-icon">🔍</div>
+            <h3>Busque</h3>
+            <p>Pesquise pelo serviço ou profissional que você precisa</p>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <div class="step-icon">👤</div>
+            <h3>Escolha</h3>
+            <p>Compare avaliações, preços e perfis dos profissionais</p>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <div class="step-icon">📅</div>
+            <h3>Contrate</h3>
+            <p>Entre em contato com o prestador diretamente pelo site</p>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step-card">
+            <div class="step-number">04</div>
+            <div class="step-icon">⭐</div>
+            <h3>Avalie</h3>
+            <p>Compartilhe sua experiência e ajude a comunidade</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="sobre">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="logo_resolveai.jpeg" alt="Resolve Aí" class="footer-logo-img" />
+        </div>
+        <p class="footer-tagline">Conectando pessoas a serviços de qualidade em todo o Brasil.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Instagram">📸</a>
+          <a href="#" class="social-btn" aria-label="Facebook">👍</a>
+          <a href="#" class="social-btn" aria-label="LinkedIn">💼</a>
+          <a href="#" class="social-btn" aria-label="Twitter">🐦</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Sobre nós</h4>
+        <ul>
+          <li><a href="#">Nossa história</a></li>
+          <li><a href="#">Missão e valores</a></li>
+          <li><a href="#">Equipe</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Imprensa</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#">Buscar profissionais</a></li>
+          <li><a href="#">Anunciar meu serviço</a></li>
+          <li><a href="#">Planos e preços</a></li>
+          <li><a href="#">Para empresas</a></li>
+          <li><a href="#">Programa de parceiros</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Central de Ajuda</h4>
+        <ul>
+          <li><a href="#">Perguntas frequentes</a></li>
+          <li><a href="#">Como funciona</a></li>
+          <li><a href="#">Política de privacidade</a></li>
+          <li><a href="#">Termos de uso</a></li>
+          <li><a href="#">Segurança</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:contato@resolveai.com.br">📧 contato@resolveai.com.br</a></li>
+          <li><a href="tel:08000000000">📞 0800 000 0000</a></li>
+          <li><a href="#">💬 Chat ao vivo</a></li>
+          <li><a href="#">📍 São Paulo, SP</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© 2025 Resolve Aí. Todos os direitos reservados.</p>
+        <div class="footer-badges">
+          <span class="badge-item">🔒 Compra segura</span>
+          <span class="badge-item">✅ Profissionais verificados</span>
+          <span class="badge-item">⭐ Avaliações reais</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>
