@@ -269,9 +269,90 @@ function stopAutoSlide() {
 }
 
 // ============================================================
+// VERIFICAÇÃO DE ASSINATURA
+// ============================================================
+function isSubscriber() {
+  try {
+    const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+    return !!user.subscriber;
+  } catch { return false; }
+}
+
+function openSubscribeWall() {
+  const old = document.getElementById('subscribeWallModal');
+  if (old) old.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'subscribeWallModal';
+  modal.style.cssText = 'position:fixed;inset:0;z-index:9200;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease;pointer-events:auto;';
+  modal.innerHTML = `
+    <div onclick="closeSubscribeWall()" style="position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(5px)"></div>
+    <div style="position:relative;z-index:1;background:#fff;border-radius:28px;padding:44px 36px 36px;max-width:420px;width:calc(100% - 32px);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.18);transform:translateY(24px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1)" id="subscribeWallBox">
+      <button onclick="closeSubscribeWall()" style="position:absolute;top:14px;right:14px;background:#f3f4f6;border:none;width:32px;height:32px;border-radius:50%;font-size:14px;cursor:pointer;color:#4b5563">✕</button>
+      <div style="font-size:52px;margin-bottom:12px">🔐</div>
+      <h2 style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:#111827;margin-bottom:10px">Recurso exclusivo para assinantes</h2>
+      <p style="font-size:14px;color:#6b7280;line-height:1.6;margin-bottom:24px">Para entrar em contato com os prestadores você precisa de uma assinatura ativa. Escolha o plano ideal e comece agora!</p>
+      <div style="display:flex;gap:12px;margin-bottom:20px">
+        <div onclick="selectWallPlan(this)" class="wall-plan wall-plan-selected" style="flex:1;border:2px solid #facc15;border-radius:20px;padding:16px 10px;cursor:pointer;background:#fefce8;text-align:center;transition:all .2s">
+          <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;color:#1f2937">📺 Básico</div>
+          <div style="font-size:19px;font-weight:900;color:#ca8a04;margin:4px 0;font-family:'Nunito',sans-serif">R$ 19,99<span style="font-size:12px;font-weight:600;color:#9ca3af">/mês</span></div>
+          <div style="font-size:11px;color:#6b7280;line-height:1.4">Acesso aos prestadores, filtros e negociação direta. Sem taxas no Pix.</div>
+        </div>
+        <div onclick="selectWallPlan(this)" class="wall-plan" style="flex:1;border:2px solid #e5e7eb;border-radius:20px;padding:16px 10px;cursor:pointer;text-align:center;transition:all .2s">
+          <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;color:#1f2937">🌟 Premium</div>
+          <div style="font-size:19px;font-weight:900;color:#ca8a04;margin:4px 0;font-family:'Nunito',sans-serif">R$ 25,99<span style="font-size:12px;font-weight:600;color:#9ca3af">/mês</span></div>
+          <div style="font-size:11px;color:#6b7280;line-height:1.4">Tudo do Básico + verificados, isenção de taxas e sem anúncios.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button class="btn-primary" style="width:100%;padding:15px;font-size:15px;border-radius:9999px" onclick="subscribeFromWall()">Assinar agora 🚀</button>
+        <button class="btn-secondary" style="width:100%;justify-content:center" onclick="closeSubscribeWall();window.location.href='home.html#planos'">Ver todos os planos</button>
+      </div>
+      <p style="font-size:11px;color:#9ca3af;margin-top:12px">🔒 Cancele quando quiser, sem multas ou burocracia.</p>
+    </div>`;
+  document.body.appendChild(modal);
+  requestAnimationFrame(() => {
+    modal.style.opacity = '1';
+    setTimeout(() => { const box = document.getElementById('subscribeWallBox'); if (box) box.style.transform = 'translateY(0) scale(1)'; }, 10);
+  });
+}
+
+function selectWallPlan(el) {
+  document.querySelectorAll('.wall-plan').forEach(p => {
+    p.style.borderColor = '#e5e7eb';
+    p.style.background  = '#fff';
+  });
+  el.style.borderColor = '#facc15';
+  el.style.background  = '#fefce8';
+}
+
+function subscribeFromWall() {
+  try {
+    const user = JSON.parse(sessionStorage.getItem('resolveai_user') || '{}');
+    user.subscriber = true;
+    sessionStorage.setItem('resolveai_user', JSON.stringify(user));
+  } catch {}
+  closeSubscribeWall();
+  showToast('Assinatura ativada! 🎉 Agora você pode contatar prestadores.', 'success');
+}
+
+function closeSubscribeWall() {
+  const modal = document.getElementById('subscribeWallModal');
+  if (!modal) return;
+  modal.style.opacity = '0';
+  setTimeout(() => modal.remove(), 300);
+}
+
+// ============================================================
 // MODAL DE CONTATO
 // ============================================================
 function contactPro(name) {
+  // Verifica assinatura antes de permitir contato
+  if (!isSubscriber()) {
+    openSubscribeWall();
+    return;
+  }
+
   // Registra estatística de contato
   try {
     const stats = JSON.parse(sessionStorage.getItem('resolveai_stats') || '{"contatos":0,"buscas":[],"cidades":[]}');
@@ -313,7 +394,7 @@ function closeContactModal() {
   setTimeout(() => modal.remove(), 300);
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContactModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeContactModal(); closeSubscribeWall(); } });
 
 // ============================================================
 // BUSCA
