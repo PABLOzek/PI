@@ -207,10 +207,10 @@ function buildCarousel(list) {
         <strong>${pro.rating}</strong>
         <span>(${pro.reviews} avaliações)</span>
       </div>
-      <div class="pro-location">📍 ${pro.location}</div>
+      <div class="pro-location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;display:inline;vertical-align:middle;margin-right:4px;color:#9ca3af"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${pro.location}</div>
       <div class="pro-tags">${tagsHTML}</div>
       <button class="btn-primary" onclick="contactPro('${pro.name}')">
-        📞 Entrar em contato
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.89 9.11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.81 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.92z"/></svg>Entrar em contato
       </button>
     `;
     track.appendChild(card);
@@ -333,7 +333,7 @@ function subscribeFromWall() {
     sessionStorage.setItem('resolveai_user', JSON.stringify(user));
   } catch {}
   closeSubscribeWall();
-  showToast('Assinatura ativada! 🎉 Agora você pode contatar prestadores.', 'success');
+  showToast('Assinatura ativada! Agora você pode contatar prestadores.', 'success');
 }
 
 function closeSubscribeWall() {
@@ -369,15 +369,15 @@ function contactPro(name) {
     <div class="modal-backdrop" onclick="closeContactModal()"></div>
     <div class="modal-box">
       <button class="modal-close" onclick="closeContactModal()">✕</button>
-      <div class="modal-icon">📞</div>
+      <div class="modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px;color:#374151"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.89 9.11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.81 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.92z"/></svg></div>
       <h2 class="modal-title">Entrar em contato</h2>
       <p class="modal-desc">Você deseja contatar <strong>${name}</strong>.<br>Como prefere se comunicar?</p>
       <div class="modal-actions">
-        <button class="btn-primary" onclick="showToast('Mensagem enviada para ${name}! ✉️','success'); closeContactModal()">
-          ✉️ Enviar mensagem
+        <button class="btn-primary" onclick="showToast('Mensagem enviada para ' + name + '!','success'); closeContactModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Enviar mensagem
         </button>
-        <button class="btn-secondary" onclick="showToast('Iniciando chamada com ${name}... 📞','success'); closeContactModal()">
-          📞 Ligar agora
+        <button class="btn-secondary" onclick="showToast('Iniciando chamada com ' + name + '...','success'); closeContactModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.89 9.11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.81 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.92z"/></svg>Ligar agora
         </button>
       </div>
       <p class="modal-note">Seus dados de contato cadastrados serão compartilhados com o prestador.</p>
@@ -411,7 +411,7 @@ function trackSearch(query, city) {
 function handleSearch() {
   const q    = document.getElementById('heroSearch')?.value.trim();
   const city = document.querySelector('.search-location-wrap input')?.value.trim();
-  if (!q) { showToast('Digite o serviço que você procura 🔍', ''); return; }
+  if (!q) { showToast('Digite o serviço que você procura', ''); return; }
   trackSearch(q, city);
   const params = new URLSearchParams({ q, city: city || '' });
   window.location.href = `resultados.html?${params.toString()}`;
@@ -428,7 +428,7 @@ function quickSearch(el) {
 function handleSpecificSearch() {
   const q    = document.getElementById('specificSearch')?.value.trim();
   const city = document.querySelector('.search-location-wrap input')?.value.trim();
-  if (!q) { showToast('Descreva o serviço que você procura 🔍', ''); return; }
+  if (!q) { showToast('Descreva o serviço que você procura', ''); return; }
   trackSearch(q, city);
   const params = new URLSearchParams({ q, city: city || '' });
   window.location.href = `resultados.html?${params.toString()}`;

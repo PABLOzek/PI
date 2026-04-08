@@ -3,7 +3,7 @@
    Resolve Aí
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --white:        #ffffff;
@@ -38,8 +38,8 @@
   --radius-lg:    20px;
   --radius-xl:    28px;
   --radius-full:  9999px;
-  --font-display: 'Nunito', sans-serif;
-  --font-body:    'Poppins', sans-serif;
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
   --transition:   all .22s cubic-bezier(.4,0,.2,1);
 }
 
