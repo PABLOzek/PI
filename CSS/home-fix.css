@@ -1,0 +1,8 @@
+/* ============================================================
+   home-fix.css — Correção de overflow para home.html e resultados.html
+   Garante scroll mesmo se algum CSS externo sobrescrever as regras do style.css.
+   Resolve Aí
+   ============================================================ */
+
+html { overflow: visible !important; }
+body { overflow-x: clip !important; overflow-y: visible !important; }

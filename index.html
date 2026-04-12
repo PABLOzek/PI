@@ -82,25 +82,6 @@
   </main>
 
   <script src="JS/auth.js"></script>
-  <script>
-    function handleGoogleLogin() {
-      const btn = document.getElementById('btnGoogle');
-      btn.textContent = 'Conectando ao Google…';
-      btn.disabled = true;
-
-      setTimeout(() => {
-        const googleUser = {
-          name: 'Usuário Google',
-          email: 'usuario@gmail.com',
-          via: 'google',
-          type: 'usuario',
-          cidade: '',
-        };
-        sessionStorage.setItem('resolveai_user', JSON.stringify(googleUser));
-        showToast('Login realizado com Google! ✅', 'success');
-        setTimeout(() => window.location.href = 'home.html', 800);
-      }, 1400);
-    }
-  </script>
+  <script src="JS/login-google.js"></script>
 </body>
 </html>
