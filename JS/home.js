@@ -348,10 +348,16 @@ function closeSubscribeWall() {
 // ============================================================
 // MODAL DE CONTATO
 // ============================================================
-function contactPro(name) {
+function contactPro(name, isPremium) {
   // Verifica assinatura antes de permitir contato
   if (!isSubscriber()) {
     openSubscribeWall();
+    return;
+  }
+
+  // Se o prestador tem assinatura Premium, redireciona para o chat
+  if (isPremium) {
+    window.location.href = 'conversas.html';
     return;
   }
 
@@ -375,10 +381,12 @@ function contactPro(name) {
       <h2 class="modal-title">Entrar em contato</h2>
       <p class="modal-desc">Você deseja contatar <strong>${name}</strong>.<br>Como prefere se comunicar?</p>
       <div class="modal-actions">
-        <button class="btn-primary" onclick="showToast('Mensagem enviada para ' + name + '!','success'); closeContactModal()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Enviar mensagem
+        <button class="btn-primary" onclick="window.location.href='conversas.html'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Conversar no Chat
         </button>
-
+        <button class="btn-secondary" onclick="showToast('Mensagem enviada para ' + name + '!','success'); closeContactModal()" style="margin-top:8px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Enviar e-mail
+        </button>
       </div>
       <p class="modal-note">Seus dados de contato cadastrados serão compartilhados com o prestador.</p>
     </div>
