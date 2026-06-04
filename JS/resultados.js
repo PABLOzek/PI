@@ -205,7 +205,7 @@ function renderCard(p) {
        </p>`;
 
   return `
-    <div class="pro-result-card">
+    <div class="pro-result-card" onclick="(function(e){if(!e.target.closest('.contact-btn-wrap'))window.location.href='prestador-perfil.html?id='+encodeURIComponent('${p.name}');})(event)" style="cursor:pointer">
       <span class="pro-level-badge ${badge.cls}">${badge.label}</span>
       <div class="pro-r-avatar-wrap">
         <img src="${p.photo}" alt="${p.name}" loading="lazy"
@@ -290,9 +290,7 @@ function contactPro(name) {
         <button class="btn-primary" onclick="showToast('Mensagem enviada para ${name}! ✉️','success'); closeContactModal()">
           ✉️ Enviar mensagem
         </button>
-        <button class="btn-secondary" onclick="showToast('Iniciando chamada com ${name}... 📞','success'); closeContactModal()">
-          📞 Ligar agora
-        </button>
+
       </div>
       <p class="modal-note">Seus dados de contato serão compartilhados com o prestador.</p>
     </div>`;

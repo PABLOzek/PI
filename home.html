@@ -62,59 +62,137 @@
 
   <main>
 
-    <!-- HERO -->
-    <section class="hero" id="busca">
-      <div class="hero-content">
-        <div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:5px"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/></svg>O serviço certo, na hora certa</div>
-        <h1 class="hero-title">
-          Encontre o profissional<br>
-          <span class="highlight">perfeito</span> para você
-        </h1>
-        <p class="hero-desc">Conectamos você a prestadores de serviços qualificados em toda a região. Rápido, seguro e confiável.</p>
-        <div class="search-bar">
-          <div class="search-input-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="heroSearch" placeholder="Que serviço você precisa?" />
-          </div>
-          <div class="search-location-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <input type="text" placeholder="Sua cidade" />
-          </div>
-          <button class="btn-primary search-btn" onclick="handleSearch()">Buscar</button>
-        </div>
-        <div class="hero-tags">
-          <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Eletricista</span>
-          <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><path d="M12 2C6 10 4 14 4 16a8 8 0 0 0 16 0c0-2-2-6-8-14z"/></svg>Encanador</span>
-          <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><path d="M6 4v16M18 4v16M4 8h4M16 8h4M4 16h4M16 16h4M8 12h8"/></svg>Personal</span>
-          <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><path d="M2 20h20M6 20V10l6-6 6 6v10M9 20v-5h6v5"/></svg>Pedreiro</span>
-          <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><path d="M3 3h14v4H3zM3 7l4 12h6l4-12"/><line x1="10" y1="19" x2="10" y2="22"/></svg>Pintor</span>
-          <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Fisioterapeuta</span>
+    <!-- HERO (estilo magazine com foto real de prestador) -->
+    <section class="hero hero-magazine" id="busca">
+
+      <!-- Faixa de destaque deslizante (topo do hero) -->
+      <div class="hero-ticker-wrap">
+        <div class="hero-ticker">
+          <span>⭐ +2.400 profissionais verificados</span>
+          <span>•</span>
+          <span>🔥 Contrate em minutos, pague depois</span>
+          <span>•</span>
+          <span>📍 Prestadores perto de você</span>
+          <span>•</span>
+          <span>✅ 98% de satisfação garantida</span>
+          <span>•</span>
+          <span>⭐ +2.400 profissionais verificados</span>
+          <span>•</span>
+          <span>🔥 Contrate em minutos, pague depois</span>
+          <span>•</span>
+          <span>📍 Prestadores perto de você</span>
+          <span>•</span>
+          <span>✅ 98% de satisfação garantida</span>
+          <span>•</span>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="hero-card card-1">
-          <div class="hc-avatar" style="background:#fbbf24;color:#fff"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:20px;height:20px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-          <div><strong>4.9</strong><br><small>Avaliação média</small></div>
+
+      <!-- Hero dividido: conteúdo esquerdo + foto direita -->
+      <div class="hero-magazine-inner">
+
+        <!-- Lado esquerdo: copy + busca -->
+        <div class="hero-magazine-content">
+          <div class="hero-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:5px"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/></svg>
+            O serviço certo, na hora certa
+          </div>
+          <h1 class="hero-title">
+            Encontre o profissional<br>
+            <span class="highlight">perfeito</span> para você
+          </h1>
+          <p class="hero-desc">Conectamos você a prestadores qualificados em toda a região. Rápido, seguro e confiável.</p>
+
+          <div class="search-bar">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="heroSearch" placeholder="Que serviço você precisa?" />
+            </div>
+            <div class="search-location-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <input type="text" placeholder="Sua cidade" />
+            </div>
+            <button class="btn-primary search-btn" onclick="handleSearch()">Buscar</button>
+          </div>
+
+          <div class="hero-tags">
+            <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tag-icon"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Eletricista</span>
+            <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tag-icon"><path d="M12 2C6 10 4 14 4 16a8 8 0 0 0 16 0c0-2-2-6-8-14z"/></svg>Encanador</span>
+            <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tag-icon"><path d="M6 4v16M18 4v16M4 8h4M16 8h4M4 16h4M16 16h4M8 12h8"/></svg>Personal</span>
+            <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tag-icon"><path d="M2 20h20M6 20V10l6-6 6 6v10M9 20v-5h6v5"/></svg>Pedreiro</span>
+            <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tag-icon"><path d="M3 3h14v4H3zM3 7l4 12h6l4-12"/></svg>Pintor</span>
+            <span class="tag" onclick="quickSearch(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tag-icon"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Fisio</span>
+          </div>
         </div>
-        <div class="hero-card card-2">
-          <div class="hc-avatar" style="background:#22c55e;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div><strong>+2.400</strong><br><small>Profissionais ativos</small></div>
-        </div>
-        <div class="hero-card card-3">
-          <div class="hc-avatar" style="background:#3b82f6;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-          <div><strong>98%</strong><br><small>Satisfação</small></div>
-        </div>
-        <div class="hero-illustration">
-          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="150" cy="150" r="130" fill="#fef9c3" opacity="0.5"/>
-            <circle cx="150" cy="100" r="50" fill="#fbbf24"/>
-            <rect x="80" y="160" width="140" height="100" rx="20" fill="#1d4ed8"/>
-            <circle cx="115" cy="185" r="15" fill="#fff" opacity="0.3"/>
-            <circle cx="150" cy="185" r="15" fill="#fff" opacity="0.3"/>
-            <circle cx="185" cy="185" r="15" fill="#fff" opacity="0.3"/>
-          </svg>
+
+        <!-- Lado direito: foto de prestador + cards flutuantes -->
+        <div class="hero-magazine-photo">
+
+          <!-- Foto principal com efeito de recorte orgânico -->
+          <div class="hero-photo-frame">
+            <!-- Slide 1: Eletricista -->
+            <div class="hero-slide hero-slide-active" style="background-image:url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=700&h=800&fit=crop&crop=faces,center')">
+              <div class="hero-slide-label">
+                <strong>Carlos Silva</strong>
+                <span>Eletricista · ⭐ 4.9</span>
+              </div>
+            </div>
+            <!-- Slide 2: Personal -->
+            <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=700&h=800&fit=crop&crop=faces,center')">
+              <div class="hero-slide-label">
+                <strong>Fernanda Costa</strong>
+                <span>Personal Trainer · ⭐ 5.0</span>
+              </div>
+            </div>
+            <!-- Slide 3: Médico -->
+            <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=700&h=800&fit=crop&crop=faces,center')">
+              <div class="hero-slide-label">
+                <strong>Dr. Rafael Borges</strong>
+                <span>Médico Clínico · ⭐ 4.9</span>
+              </div>
+            </div>
+
+            <!-- Indicadores de slide -->
+            <div class="hero-slide-dots">
+              <span class="hero-dot hero-dot-active" onclick="goHeroSlide(0)"></span>
+              <span class="hero-dot" onclick="goHeroSlide(1)"></span>
+              <span class="hero-dot" onclick="goHeroSlide(2)"></span>
+            </div>
+          </div>
+
+          <!-- Cards flutuantes -->
+          <div class="hero-float-card hfc-1">
+            <div class="hfc-icon" style="background:#22c55e;color:#fff">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <strong>+2.400</strong>
+              <small>Profissionais ativos</small>
+            </div>
+          </div>
+
+          <div class="hero-float-card hfc-2">
+            <div class="hfc-icon" style="background:#fbbf24;color:#fff">
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:16px;height:16px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div>
+              <strong>4.9 ★</strong>
+              <small>Avaliação média</small>
+            </div>
+          </div>
+
+          <div class="hero-float-card hfc-3">
+            <div class="hfc-icon" style="background:#3b82f6;color:#fff">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <strong>98%</strong>
+              <small>Satisfação</small>
+            </div>
+          </div>
+
         </div>
       </div>
+
     </section>
 
     <!-- CATEGORIAS -->
@@ -538,7 +616,7 @@
         <div class="about-inner">
           <div class="about-visual">
             <div class="about-logo-wrap">
-              <img src="IMG/logo_resolveai.jpeg" alt="Resolve Aí" class="about-logo-img" onerror="this.parentElement.innerHTML='<div class=about-logo-fallback><span>Resolve</span><span class=accent>Aí</span></div>'" />
+              <img src="IMG/logo_resolveai.jpeg" alt="Resolve Aí" class="about-logo-img" />
             </div>
             <div class="about-stats-grid">
               <div class="about-stat">
@@ -668,5 +746,21 @@
   <script src="JS/auth.js"></script>
   <script src="JS/home.js"></script>
   <script src="JS/home-extra.js"></script>
+  <script>
+    // Hero magazine slideshow
+    let heroSlide = 0;
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const heroDots   = document.querySelectorAll('.hero-dot');
+    function goHeroSlide(n) {
+      heroSlides[heroSlide].classList.remove('hero-slide-active');
+      heroDots[heroSlide].classList.remove('hero-dot-active');
+      heroSlide = (n + heroSlides.length) % heroSlides.length;
+      heroSlides[heroSlide].classList.add('hero-slide-active');
+      heroDots[heroSlide].classList.add('hero-dot-active');
+    }
+    if (heroSlides.length > 0) {
+      setInterval(() => goHeroSlide(heroSlide + 1), 5000);
+    }
+  </script>
 </body>
 </html>
