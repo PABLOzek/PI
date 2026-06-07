@@ -24,6 +24,39 @@ const professionals = [
   { photo: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=200&h=200&fit=crop&crop=faces', name: 'Lucas Oliveira',    role: 'Encanador',             rating: 4.7, reviews:  48, location: 'Goiânia, GO',        city: 'goiânia',         state: 'go', tags: ['Hidráulica', 'Reformas', 'Emergência'] },
   { photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=faces', name: 'Mariana Castro',    role: 'Psicóloga',             rating: 5.0, reviews: 197, location: 'Goiânia, GO',        city: 'goiânia',         state: 'go', tags: ['CRP', 'Ansiedade', 'Online'] },
   { photo: 'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=200&h=200&fit=crop&crop=faces', name: 'Eduardo Faria',     role: 'Pedreiro / Construtor', rating: 4.6, reviews:  53, location: 'Goiânia, GO',        city: 'goiânia',         state: 'go', tags: ['Reformas', 'Alvenaria', 'Pintura'] },
+  // ── Jardinagem ─────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&h=200&fit=crop&crop=faces', name: 'André Jardim',      role: 'Jardineiro',            rating: 4.8, reviews:  74, location: 'Brasília, DF',       city: 'brasília',        state: 'df', tags: ['Paisagismo', 'Poda', 'Irrigação'] },
+  { photo: 'https://images.unsplash.com/photo-1594751684241-bcef815d4fa2?w=200&h=200&fit=crop&crop=faces', name: 'Silvia Campos',     role: 'Paisagista',            rating: 5.0, reviews: 108, location: 'São Paulo, SP',       city: 'são paulo',       state: 'sp', tags: ['Jardins', 'Projeto', 'Hortas'] },
+  // ── Limpeza ────────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop&crop=faces', name: 'Cleide Moura',       role: 'Diarista / Limpeza',    rating: 4.9, reviews: 182, location: 'São Paulo, SP',       city: 'são paulo',       state: 'sp', tags: ['Residencial', 'Pós-obra', 'Semanal'] },
+  { photo: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=faces', name: 'Rosana Pinto',      role: 'Diarista / Limpeza',    rating: 4.7, reviews:  93, location: 'Goiânia, GO',        city: 'goiânia',         state: 'go', tags: ['Comercial', 'Condomínio', 'Periódica'] },
+  // ── Segurança ──────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&h=200&fit=crop&crop=faces', name: 'Marcus Duarte',     role: 'Vigilante / Segurança', rating: 4.7, reviews:  45, location: 'Rio de Janeiro, RJ', city: 'rio de janeiro',  state: 'rj', tags: ['Eventos', 'Patrimonial', 'Armado'] },
+  // ── Advocacia ──────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=200&h=200&fit=crop&crop=faces', name: 'Dra. Renata Dias',  role: 'Advogada',              rating: 4.9, reviews: 116, location: 'São Paulo, SP',       city: 'são paulo',       state: 'sp', tags: ['OAB', 'Trabalhista', 'Cível'] },
+  { photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces', name: 'Dr. Fábio Assis',   role: 'Advogado',              rating: 4.8, reviews:  88, location: 'Brasília, DF',       city: 'brasília',        state: 'df', tags: ['OAB', 'Família', 'Imobiliário'] },
+  // ── Contabilidade ──────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=200&h=200&fit=crop&crop=faces', name: 'Amanda Freitas',    role: 'Contadora',             rating: 4.9, reviews: 137, location: 'Curitiba, PR',       city: 'curitiba',        state: 'pr', tags: ['CRC', 'MEI', 'Imposto de Renda'] },
+  // ── Design ─────────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop&crop=faces', name: 'Isabela Nobre',     role: 'Designer Gráfico',      rating: 5.0, reviews: 201, location: 'São Paulo, SP',       city: 'são paulo',       state: 'sp', tags: ['Branding', 'Social Media', 'UI/UX'] },
+  // ── Idiomas ────────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&h=200&fit=crop&crop=faces', name: 'Clara Whitman',     role: 'Professora de Inglês',  rating: 4.9, reviews: 165, location: 'Rio de Janeiro, RJ', city: 'rio de janeiro',  state: 'rj', tags: ['Conversação', 'TOEFL', 'Online'] },
+  // ── Música ─────────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces', name: 'Rafael Moura',      role: 'Professor de Música',   rating: 4.8, reviews:  79, location: 'Belo Horizonte, MG', city: 'belo horizonte',  state: 'mg', tags: ['Violão', 'Piano', 'Teoria Musical'] },
+  // ── Gastronomia ────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop&crop=faces', name: 'Priya Santos',      role: 'Confeiteira',           rating: 5.0, reviews: 143, location: 'São Paulo, SP',       city: 'são paulo',       state: 'sp', tags: ['Bolos', 'Doces Finos', 'Encomendas'] },
+  // ── Moda ───────────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces', name: 'Tereza Leal',       role: 'Costureira',            rating: 4.8, reviews:  62, location: 'Porto Alegre, RS',   city: 'porto alegre',    state: 'rs', tags: ['Ajustes', 'Roupas sob medida', 'Reformas'] },
+  // ── Informática ────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=faces', name: 'Bruno Techeira',    role: 'Técnico em TI',         rating: 4.9, reviews: 119, location: 'Campinas, SP',       city: 'campinas',        state: 'sp', tags: ['Redes', 'Formatação', 'Suporte Remoto'] },
+  // ── Automóveis ─────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=200&h=200&fit=crop&crop=faces', name: 'Sandro Melo',       role: 'Mecânico Automotivo',   rating: 4.7, reviews:  85, location: 'Goiânia, GO',        city: 'goiânia',         state: 'go', tags: ['Revisão', 'Funilaria', 'Elétrica Auto'] },
+  // ── Finanças ───────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&h=200&fit=crop&crop=faces', name: 'Nelson Queiroz',    role: 'Consultor Financeiro',  rating: 4.9, reviews:  97, location: 'São Paulo, SP',       city: 'são paulo',       state: 'sp', tags: ['Investimentos', 'Planejamento', 'CFP'] },
+  // ── Engenharia ─────────────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=faces', name: 'Eng. Marcos Lima',  role: 'Engenheiro Civil',      rating: 4.9, reviews: 104, location: 'Goiânia, GO',        city: 'goiânia',         state: 'go', tags: ['CREA', 'Laudos', 'Projetos'] },
+  // ── Assistência Social ─────────────────────────────────────────────────────
+  { photo: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=faces', name: 'Vanessa Cruz',      role: 'Assistente Social',     rating: 5.0, reviews:  71, location: 'Fortaleza, CE',      city: 'fortaleza',       state: 'ce', tags: ['CRESS', 'Família', 'Vulnerabilidade'] },
 ];
 
 // ── Mapeamento de cidades → estado (para cidades não cadastradas) ──────────
