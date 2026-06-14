@@ -3,18 +3,6 @@
    Resolve Aí
    ============================================================ */
 
-// ── Toast local (complementa auth.js) ──
-function showToast(msg, type) {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
-  const t = document.createElement('div');
-  t.className = `toast ${type}`;
-  t.textContent = msg;
-  document.body.appendChild(t);
-  requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('show')));
-  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3200);
-}
-
 // ── Toggle senha ──
 function togglePwd(id, btn) {
   const inp = document.getElementById(id);

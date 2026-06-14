@@ -36,7 +36,6 @@
         bio: 'Psicóloga clínica com registro no CRP e formação em Terapia Cognitivo-Comportamental. Especialista no tratamento de ansiedade, depressão e questões relacionais. Ofereço sessões presenciais e online, em um ambiente seguro e acolhedor. Sua saúde mental é prioridade.' },
       { photo: 'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=400&h=400&fit=crop&crop=faces', name: 'Eduardo Faria',     role: 'Pedreiro / Construtor', rating: 4.6, reviews:  53, hires: 39,  location: 'Goiânia, GO',        tags: ['Reformas','Alvenaria','Pintura'], priceBase: 170,
         bio: 'Construtor experiente em reformas completas, alvenaria e acabamentos. Atuo em Goiânia e região há 11 anos, com equipe própria, agilidade e preço justo. Meu trabalho vai de pequenos reparos a reformas completas de ambientes residenciais e comerciais.' },
-<<<<<<< HEAD
       // ── Jardinagem ───────────────────────────────────────────────────────────
       { photo: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop&crop=faces', name: 'André Jardim',      role: 'Jardineiro',            rating: 4.8, reviews:  74, hires: 58,  location: 'Brasília, DF',       tags: ['Paisagismo','Poda','Irrigação'], priceBase: 100,
         bio: 'Jardineiro com 9 anos de experiência em manutenção, poda e paisagismo residencial e corporativo. Cuido do seu jardim com atenção e dedicação, garantindo verde saudável durante todo o ano. Trabalho com plantas nativas e exóticas, sistemas de irrigação e decoração verde.' },
@@ -88,8 +87,6 @@
       // ── Assistência Social ────────────────────────────────────────────────────
       { photo: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=faces', name: 'Vanessa Cruz',      role: 'Assistente Social',     rating: 5.0, reviews:  71, hires: 58,  location: 'Fortaleza, CE',      tags: ['CRESS','Família','Vulnerabilidade'], priceBase: 160,
         bio: 'Assistente Social com registro no CRESS e especialização em políticas públicas e proteção à família. Atendo casos de vulnerabilidade social, orientação familiar e acompanhamento de crianças e adolescentes. Trabalho com escuta ativa, ética e comprometimento com a transformação social.' },
-=======
->>>>>>> 35c33d101c9375f2202615bd1ede0f7ff522b17b
     ];
 
     const servicePhotos = {
@@ -109,7 +106,6 @@
       'Médico Clínico Geral':  ['https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&fit=crop','https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&fit=crop','https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=400&fit=crop'],
       'Nutricionista':         ['https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&fit=crop','https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&fit=crop','https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400&fit=crop'],
       'Psicóloga':             ['https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=400&fit=crop','https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&fit=crop','https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400&fit=crop'],
-<<<<<<< HEAD
       'Jardineiro':            ['https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&fit=crop','https://images.unsplash.com/photo-1558618048-fbd3f3b64c8d?w=400&fit=crop','https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?w=400&fit=crop'],
       'Paisagista':            ['https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&fit=crop','https://images.unsplash.com/photo-1558618048-fbd3f3b64c8d?w=400&fit=crop','https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=400&fit=crop'],
       'Diarista / Limpeza':    ['https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&fit=crop','https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&fit=crop','https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&fit=crop'],
@@ -127,8 +123,6 @@
       'Consultor Financeiro':  ['https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400&fit=crop','https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&fit=crop','https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?w=400&fit=crop'],
       'Engenheiro Civil':      ['https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&fit=crop','https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&fit=crop','https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&fit=crop'],
       'Assistente Social':     ['https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&fit=crop','https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&fit=crop','https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&fit=crop'],
-=======
->>>>>>> 35c33d101c9375f2202615bd1ede0f7ff522b17b
     };
 
     const sampleReviews = [
